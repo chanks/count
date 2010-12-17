@@ -20,4 +20,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency("railties", "~> 3.0.0")
+
+  s.add_development_dependency("rspec", "~> 2.3.0")
 end
