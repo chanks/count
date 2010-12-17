@@ -1,3 +1,2 @@
-module Mingo
-  # Your code goes here...
-end
+require 'mingo/engine'
+require 'mingo/version'
