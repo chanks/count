@@ -9,7 +9,7 @@ module Mingo
       index  = hash.hex % alternatives.length
       result = alternatives[index]
 
-      selector  = {:test => test_name, :option => result, :participants => {:$ne => mingo_id}}
+      selector  = {:experiment => test_name, :alternative => result, :participants => {:$ne => mingo_id}}
       modifiers = {'$inc' => {'participant_count' => 1}, '$push' => {'participants' => mingo_id}}
       Mingo.collection.update(selector, modifiers, :upsert => true)
 

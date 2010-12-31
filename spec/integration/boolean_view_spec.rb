@@ -22,7 +22,7 @@ describe "A user visiting a page with a boolean a/b test" do
     boolean  = eval(result)
     mingo_id = last_response.headers['mingo_id'].to_i
 
-    record = Mingo.collection.find_one(:test => 'boolean_view_test', :option => boolean)
+    record = Mingo.collection.find_one(:experiment => 'boolean_view_test', :alternative => boolean)
     record['participant_count'].should == 1
     record['participants'].should == [mingo_id]
   end
