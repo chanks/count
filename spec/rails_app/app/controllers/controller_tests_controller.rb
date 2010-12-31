@@ -8,6 +8,10 @@ class ControllerTestsController < ApplicationController
     render :text => 'nil'
   end
 
+  def array_choose
+    render :text => ab_choose('array_test', [1, 2, 3]).to_s
+  end
+
   def boolean
     render :text => ab_test('boolean_test').to_s
   end
