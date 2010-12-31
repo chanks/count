@@ -7,7 +7,7 @@ class ControllerTestsController < ApplicationController
 
   def array_bingo
     bingo! 'array_test'
-    render :text => 'nil'
+    render :nothing => true
   end
 
   def boolean
@@ -16,7 +16,7 @@ class ControllerTestsController < ApplicationController
 
   def boolean_bingo
     bingo! 'boolean_test'
-    render :text => 'nil'
+    render :nothing => true
   end
 
   def hash
@@ -25,7 +25,7 @@ class ControllerTestsController < ApplicationController
 
   def hash_bingo
     bingo! 'hash_test'
-    render :text => 'nil'
+    render :nothing => true
   end
 
   def range
@@ -34,7 +34,7 @@ class ControllerTestsController < ApplicationController
 
   def range_bingo
     bingo! 'range_test'
-    render :text => 'nil'
+    render :nothing => true
   end
 
 
