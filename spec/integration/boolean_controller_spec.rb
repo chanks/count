@@ -26,4 +26,13 @@ describe "A controller action with a boolean a/b test" do
     record['participant_count'].should == 1
     record['participants'].should == [mingo_id]
   end
+
+  it "should only register the visitor as a participant once, regardless of how many times they visit" do
+    boolean = eval(result); result; result
+    mingo_id = last_response.headers['mingo_id'].to_i
+
+    record = Mingo.collection.find_one(:experiment => 'boolean_controller_test', :alternative => boolean)
+    record['participant_count'].should == 1
+    record['participants'].should == [mingo_id]
+  end
 end
