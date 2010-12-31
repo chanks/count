@@ -2,8 +2,8 @@ require 'digest/md5'
 
 module Mingo
   module Helpers
-    def ab_test(test_name, alternatives = nil)
-      result = ab_choose(test_name, alternatives)
+    def ab_test(test_name, alternatives = nil, &block)
+      result = ab_choose(test_name, alternatives, &block)
 
       selector  = {:experiment => test_name, :alternative => result, :participants => {:$ne => mingo_id}}
       modifiers = {'$inc' => {'participant_count' => 1}, '$push' => {'participants' => mingo_id}}
@@ -18,8 +18,11 @@ module Mingo
 
       digest = Digest::MD5.hexdigest(mingo_id.to_s + test_name.to_s)
       index  = digest.hex % alternatives.length
+      result = alternatives[index]
 
-      alternatives[index]
+      yield result if block_given?
+
+      result
     end
 
     def bingo!(test_name)

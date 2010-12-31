@@ -1,4 +1,6 @@
 class ControllerTestsController < ApplicationController
+
+  # ab_test specs.
   def array
     render :text => ab_test('array_test', [1, 2, 3]).to_s
   end
@@ -6,10 +8,6 @@ class ControllerTestsController < ApplicationController
   def array_bingo
     bingo! 'array_test'
     render :text => 'nil'
-  end
-
-  def array_choose
-    render :text => ab_choose('array_test', [1, 2, 3]).to_s
   end
 
   def boolean
@@ -28,5 +26,25 @@ class ControllerTestsController < ApplicationController
   def range_bingo
     bingo! 'range_test'
     render :text => 'nil'
+  end
+
+
+  # ab_choose specs.
+  def array_choose
+    render :text => ab_choose('array_test', [1, 2, 3]).to_s
+  end
+
+
+  # specs for the helpers' behaviors with blocks
+  def array_test_block
+    ab_test 'array_test', [1, 2, 3] do |result|
+      render :text => result.to_s
+    end
+  end
+
+  def array_choose_block
+    ab_choose 'array_test', [1, 2, 3] do |result|
+      render :text => result.to_s
+    end
   end
 end
