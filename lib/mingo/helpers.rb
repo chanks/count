@@ -3,6 +3,8 @@ require 'digest/md5'
 module Mingo
   module Helpers
     def ab_test(test_name, alternatives = [true, false])
+      alternatives = alternatives.to_a
+
       hash   = Digest::MD5.hexdigest(mingo_id.to_s + test_name.to_s)
       index  = hash.hex % alternatives.length
       result = alternatives[index]

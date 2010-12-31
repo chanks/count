@@ -16,4 +16,13 @@ class ControllerTestsController < ApplicationController
     bingo! 'boolean_test'
     render :text => 'nil'
   end
+
+  def range
+    render :text => ab_test('range_test', (1..3)).to_s
+  end
+
+  def range_bingo
+    bingo! 'range_test'
+    render :text => 'nil'
+  end
 end
