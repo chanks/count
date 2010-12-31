@@ -9,11 +9,23 @@ describe "Mingo.collection" do
     c.db.name.should == 'mingo_test'
   end
 
-  it "should raise an error if it is nil" do
-    actual_collection, Mingo.collection = Mingo.collection, nil
+  it "when there is none set should raise an error" do
+    actual_collection = Mingo.collection
+    Mingo.send :instance_variable_set, :@collection, nil
 
     proc { Mingo.collection }.should raise_error /Mingo doesn't have a collection to write to/
 
-    Mingo.collection = actual_collection
+    Mingo.send :instance_variable_set, :@collection, actual_collection
+  end
+end
+
+describe "Mingo.collection=" do
+  it "when there is none existent should create a unique index on the experiment and alternative fields" do
+    Mingo.collection.drop
+    Mingo.collection = Mongo::Connection.new['mingo_test']['experiments']
+
+    info = Mingo.collection.index_information['experiment_1_alternative_1']
+    info['key'].should == {'experiment' => 1, 'alternative' => 1}
+    info['unique'].should == true
   end
 end
