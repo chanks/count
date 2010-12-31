@@ -1,0 +1,9 @@
+= Mingo
+
+* https://github.com/chanks/mingo
+
+== Description:
+
+Mingo will eventually be a simple A/B testing engine for Rails 3 apps. It'll use MongoDB as a backend.
+
+Honestly, the only reason I'm even putting it up on Github at this point is because my laptop's hard drive is making a slight grinding noise, and I want an easy backup.
