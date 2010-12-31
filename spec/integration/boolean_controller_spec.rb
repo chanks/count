@@ -35,4 +35,16 @@ describe "A controller action with a boolean a/b test" do
     record['participant_count'].should == 1
     record['participants'].should == [mingo_id]
   end
+
+  it "that becomes a participant and then converts should be recorded as a conversion" do
+    boolean = eval(result)
+    mingo_id = last_response.headers['mingo_id'].to_i
+    get '/booleans/bingo'
+
+    record = Mingo.collection.find_one(:experiment => 'boolean_controller_test', :alternative => boolean)
+    record['participant_count'].should == 1
+    record['participants'].should == [mingo_id]
+    record['conversion_count'].should == 1
+    record['conversions'].should == [mingo_id]
+  end
 end

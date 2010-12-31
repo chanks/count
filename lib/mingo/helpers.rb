@@ -16,6 +16,12 @@ module Mingo
       result
     end
 
+    def bingo!(test_name)
+      selector  = {:experiment => test_name, :participants => mingo_id, :conversions => {:$ne => mingo_id}}
+      modifiers = {'$inc' => {'conversion_count' => 1}, '$push' => {'conversions' => mingo_id}}
+      Mingo.collection.update(selector, modifiers, :upsert => true)
+    end
+
     private
 
     def mingo_id
