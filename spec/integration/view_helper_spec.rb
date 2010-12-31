@@ -32,7 +32,7 @@ describe "An A/B boolean test in the view" do
   it "should return each value approximately 50% of the time" do
     results = Hash.new(0)
     100.times { clear_cookies; results[participate!] += 1 }
-    results.values.each { |value| value.should be_within(10).of(50) }
+    results.values.each { |value| value.should be_within(15).of(50) }
   end
 
   it "should always return the same value for a given user" do

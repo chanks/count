@@ -26,7 +26,7 @@ branch :array, :boolean, :range do |test_type|
       it "should return each value approximately 50% of the time" do
         results = Hash.new(0)
         100.times { clear_cookies; results[participate!] += 1 }
-        results.values.each { |value| value.should be_within(10).of(50) }
+        results.values.each { |value| value.should be_within(15).of(50) }
       end
     end
 
@@ -38,7 +38,7 @@ branch :array, :boolean, :range do |test_type|
       it "should return each value approximately 33% of the time" do
         results = Hash.new(0)
         100.times { clear_cookies; results[participate!] += 1 }
-        results.values.each { |value| value.should be_within(10).of(33) }
+        results.values.each { |value| value.should be_within(15).of(33) }
       end
     end
 
