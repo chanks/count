@@ -47,4 +47,10 @@ describe "A user visiting a page with a boolean a/b test" do
     record['conversion_count'].should == 1
     record['conversions'].should == [mingo_id]
   end
+
+  it "that converts without having become a participant should not have anything recorded" do
+    get '/view_tests/test/boolean_bingo'
+
+    Mingo.collection.count.should == 0
+  end
 end
