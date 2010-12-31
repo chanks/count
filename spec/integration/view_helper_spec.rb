@@ -17,10 +17,6 @@ describe "An A/B boolean test in the view" do
     get "/view_tests/test/boolean_bingo"
   end
 
-  def mingo_id
-    last_response.headers['mingo_id'].to_i
-  end
-
   def load_record(boolean)
     Mingo.collection.find_one :experiment => 'boolean_test', :alternative => boolean
   end
