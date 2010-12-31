@@ -1,6 +1,7 @@
 require 'mongo'
 
 require 'mingo/engine'
+require 'mingo/helpers'
 require 'mingo/version'
 
 module Mingo
