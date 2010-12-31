@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-branch :array, :boolean, :range do |test_type|
+branch :array, :boolean, :range, :hash do |test_type|
   describe "An A/B #{test_type} test" do
 
     # Hits an ab_test helper, returns its value.
@@ -43,6 +43,20 @@ branch :array, :boolean, :range do |test_type|
         results = Hash.new(0)
         100.times { clear_cookies; results[participate!] += 1 }
         results.values.each { |value| value.should be_within(15).of(33) }
+      end
+    end
+
+    if test_type.hash?
+      it "should return a value of 1 or 2" do
+        [1, 2].should include participate!
+      end
+
+      it "should return 1 ~66% of the time and 2 ~33% of the time" do
+        results = Hash.new(0)
+        100.times { clear_cookies; results[participate!] += 1 }
+
+        results[1].should be_within(15).of(66)
+        results[2].should be_within(15).of(33)
       end
     end
 
