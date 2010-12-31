@@ -3,7 +3,7 @@ require 'spec_helper'
 branch :array, :boolean, :range do |test_type|
   describe "An A/B #{test_type} test" do
 
-    # Trigger the a/b test, and return the value it chose.
+    # Hits an ab_test helper, returns its value.
     define_method :participate! do
       get "/controller_tests/#{test_type}"
       eval(last_response.body)
@@ -16,6 +16,10 @@ branch :array, :boolean, :range do |test_type|
 
     define_method :results_for do |alternative|
       Mingo.collection.find_one :experiment => "#{test_type}_test", :alternative => alternative
+    end
+
+    it "should always return the same value for a given user" do
+      (1..10).map{ participate! }.uniq.count.should == 1
     end
 
     if test_type.boolean?
@@ -40,10 +44,6 @@ branch :array, :boolean, :range do |test_type|
         100.times { clear_cookies; results[participate!] += 1 }
         results.values.each { |value| value.should be_within(15).of(33) }
       end
-    end
-
-    it "should always return the same value for a given user" do
-      (1..10).map{ participate! }.uniq.count.should == 1
     end
 
     context "that returns a value for a user" do
