@@ -18,7 +18,7 @@ describe "A controller action with a boolean a/b test" do
     (1..10).map{ result }.uniq.count.should == 1
   end
 
-  it "should be registered as a participant in Mongo" do
+  it "should register the visitor as a participant in Mongo" do
     boolean  = eval(result)
     mingo_id = last_response.headers['mingo_id'].to_i
 
