@@ -17,4 +17,13 @@ describe "A user visiting a page with a boolean a/b test" do
   it "should always see either true or false for a given user" do
     (1..10).map{ result }.uniq.count.should == 1
   end
+
+  it "should be registered as a participant in Mongo" do
+    boolean  = eval(result)
+    mingo_id = last_response.headers['mingo_id'].to_i
+
+    record = Mingo.collection.find_one(:test => 'boolean_view_test', :option => boolean)
+    record['participant_count'].should == 1
+    record['participants'].should == [mingo_id]
+  end
 end
