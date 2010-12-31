@@ -9,5 +9,8 @@ def app
 end
 
 RSpec.configure do |config|
-  config.after { clear_cookies }
+  config.after do
+    clear_cookies
+    Mingo.collection.remove
+  end
 end
