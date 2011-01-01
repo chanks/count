@@ -56,4 +56,20 @@ class ControllerTestsController < ApplicationController
       render :text => result.to_s
     end
   end
+
+
+  # specs for an explicit conversion name
+  def conversion
+    number  = ab_test 'test_1', [1, 2, 3], :conversion => 'common_conversion'
+    boolean = ab_test 'test_2',            :conversion => 'common_conversion'
+    other_1 = ab_test 'other_1', (10..20), :conversion => 'other_conversion'
+    other_2 = ab_test 'other_2', (30..40)
+
+    render :text => [number, boolean, other_1, other_2].join('-')
+  end
+
+  def conversion_bingo
+    bingo! 'common_conversion'
+    render :nothing => true
+  end
 end
