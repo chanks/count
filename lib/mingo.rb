@@ -1,6 +1,8 @@
 require 'mongo'
 
+require 'mingo/alternative'
 require 'mingo/engine'
+require 'mingo/experiment'
 require 'mingo/helpers'
 require 'mingo/version'
 
