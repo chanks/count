@@ -28,6 +28,15 @@ class ControllerTestsController < ApplicationController
     render :nothing => true
   end
 
+  def integer
+    render :text => ab_test('integer_test', 3).to_s
+  end
+
+  def integer_bingo
+    bingo! 'integer_test'
+    render :nothing => true
+  end
+
   def range
     render :text => ab_test('range_test', (1..3)).to_s
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-branch :array, :boolean, :range, :hash do |test_type|
+branch :array, :boolean, :range, :hash, :integer do |test_type|
   describe "An A/B #{test_type} test" do
 
     # Hits an ab_test helper, returns its value.
@@ -34,7 +34,7 @@ branch :array, :boolean, :range, :hash do |test_type|
       end
     end
 
-    if test_type.array? || test_type.range?
+    if test_type.array? || test_type.range? || test_type.integer?
       it "should return a value of 1, 2 or 3" do
         [1, 2, 3].should include participate!
       end

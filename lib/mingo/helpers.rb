@@ -22,10 +22,11 @@ module Mingo
     def ab_choose(test_name, alternatives = nil)
       alternatives =
       case alternatives
-        when nil   then [true, false]
-        when Array then alternatives
-        when Hash  then alternatives.each_with_object([]) { |(key, int), array| int.times { array << key } }
-        else            alternatives.to_a
+        when nil     then [true, false]
+        when Array   then alternatives
+        when Integer then (1..alternatives).to_a
+        when Hash    then alternatives.each_with_object([]) { |(key, int), array| int.times { array << key } }
+        else              alternatives.to_a
       end
 
       digest = Digest::MD5.hexdigest(mingo_id.to_s + test_name.to_s)
