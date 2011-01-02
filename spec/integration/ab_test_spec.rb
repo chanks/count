@@ -13,7 +13,7 @@ describe "An A/B test" do
   end
 
   def results_for(alternative)
-    Mingo.collection.find_one :test => "array_test", :alternative => alternative
+    Mingo.collection.find_one :test => 'array', :alternative => alternative
   end
 
   it "that has a conversion for a user that hasn't participated should not record it" do
@@ -42,7 +42,7 @@ describe "An A/B test" do
     it "several times should not create any duplicate result records" do
       3.times { participate! }
       Mingo.collection.count.should == 1
-      results_for(@number)['_id'].should == "array_test/#{@number}"
+      results_for(@number)['_id'].should == "array/#{@number}"
     end
 
     context "who then converts" do
