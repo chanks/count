@@ -16,6 +16,6 @@ module Mingo
     end
     alias :config :configure
 
-    delegate *Config.public_instance_methods(false), :to => :configure
+    Config.public_instance_methods(false).each { |method| delegate method, :to => :configure }
   end
 end
