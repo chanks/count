@@ -12,7 +12,12 @@ The name 'Mingo' is a mash-up of A/Bingo and Mongo.
 
     gem 'mingo', :git => 'git://github.com/chanks/mingo.git', :ref => "(something recent...)"
 
-* In an initializer, tell Mingo what collection you want it to store your testing data in. This will look something like:
+* Give Mingo a collection to store your test results in. You can do this via Rails' config system:
+
+    # config/environments/production.rb
+    config.mingo.collection = Mongo::Connection.from_uri(ENV['MONGO_URI'])['database_name']['experiments']
+
+Or, just use Mingo.collection= in an initializer:
 
     if Rails.env.production?
       connection = Mongo::Connection.new "your_mongo_host", 27017, :logger => Rails.logger

@@ -5,7 +5,7 @@ module Mingo
     include Singleton
 
     def collection
-      @collection || raise("Mingo doesn't have a collection to write to! Please give it one using Mingo.collection=, probably in an initializer.")
+      @collection || raise("Mingo doesn't have a collection to use! Please see the README for setup info.")
     end
 
     def collection=(collection)
