@@ -3,11 +3,14 @@ require 'digest/md5'
 module Mingo
   module Helpers
     def ab_test(test_name, alternatives = nil, &block)
-      result    = ab_choose(test_name, alternatives, &block)
-      selector  = {:experiment => test_name, :alternative => result, :participants => {:$ne => mingo_id}}
-      modifiers = {:$inc => {:participant_count => 1}, :$push => {:participants => mingo_id}}
+      result = ab_choose(test_name, alternatives, &block)
 
-      Mingo.collection.update(selector, modifiers, :upsert => true)
+      if Mingo.collection
+        selector  = {:experiment => test_name, :alternative => result, :participants => {:$ne => mingo_id}}
+        modifiers = {:$inc => {:participant_count => 1}, :$push => {:participants => mingo_id}}
+
+        Mingo.collection.update selector, modifiers, :upsert => true
+      end
 
       result
     end
@@ -32,11 +35,13 @@ module Mingo
     end
 
     def bingo!(*test_names)
-      selector  = { :experiment => { :$in => test_names },
-                    :participants => mingo_id, :conversions => { :$ne => mingo_id } }
-      modifiers = { :$inc => { :conversion_count => 1 }, :$push => { :conversions => mingo_id } }
+      if Mingo.collection
+        selector  = { :experiment => { :$in => test_names },
+                      :participants => mingo_id, :conversions => { :$ne => mingo_id } }
+        modifiers = { :$inc => { :conversion_count => 1 }, :$push => { :conversions => mingo_id } }
 
-      Mingo.collection.update(selector, modifiers, :multi => true)
+        Mingo.collection.update selector, modifiers, :multi => true
+      end
     end
 
     private

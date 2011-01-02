@@ -8,14 +8,6 @@ describe "Mingo.collection" do
     c.name.should    == 'experiments'
     c.db.name.should == 'mingo_test'
   end
-
-  it "when there is none set should raise an error" do
-    actual_collection, Mingo.collection = Mingo.collection, nil
-
-    proc { Mingo.collection }.should raise_error /Mingo doesn't have a collection to write to/
-
-    Mingo.collection = actual_collection
-  end
 end
 
 describe "Mingo.collection=" do

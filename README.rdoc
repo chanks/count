@@ -27,6 +27,8 @@ Or, just use Mingo.collection= in an initializer:
       Mingo.collection = database['experiments']
     end
 
+If you don't give Mingo a collection, it will simply not track results. This is probably what you want in development or test mode.
+
 * Start writing A/B tests! No scripts or migrations necessary.
 
 == Usage:

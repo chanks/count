@@ -4,9 +4,7 @@ module Mingo
   class Config
     include Singleton
 
-    def collection
-      @collection || raise("Mingo doesn't have a collection to use! Please see the README for setup info.")
-    end
+    attr_reader :collection
 
     def collection=(collection)
       @collection = collection
