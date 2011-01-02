@@ -17,23 +17,23 @@ module Mingo
 
     def ab_choose(test_name, alternatives = nil)
       alternatives =
-      case alternatives
-        when nil     then [true, false]
-        when Array   then alternatives
-        when Integer then (1..alternatives).to_a
-        when Hash    then alternatives.each_with_object([]) { |(key, int), array| int.times { array << key } }
-        else              alternatives.to_a
-      end
+        case alternatives
+          when nil     then [true, false]
+          when Array   then alternatives
+          when Integer then (1..alternatives).to_a
+          when Hash    then alternatives.each_with_object([]) { |(key, int), array| int.times { array << key } }
+          else              alternatives.to_a
+        end
 
       result =
-      case Mingo.mode
-        when :shuffle then alternatives.sample
-        when :first   then alternatives.first
-        when :standard
-          digest = Digest::MD5.hexdigest(mingo_id.to_s + test_name.to_s)
-          index  = digest.hex % alternatives.length
-          alternatives[index]
-      end
+        case Mingo.mode
+          when :shuffle then alternatives.sample
+          when :first   then alternatives.first
+          when :standard
+            digest = Digest::MD5.hexdigest(mingo_id.to_s + test_name.to_s)
+            index  = digest.hex % alternatives.length
+            alternatives[index]
+        end
 
       yield result if block_given?
       result
