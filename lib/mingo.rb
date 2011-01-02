@@ -1,6 +1,7 @@
 require 'mongo'
 
 require 'mingo/alternative'
+require 'mingo/config'
 require 'mingo/engine'
 require 'mingo/experiment'
 require 'mingo/helpers'
@@ -8,19 +9,13 @@ require 'mingo/version'
 
 module Mingo
   class << self
-    def collection
-      @collection || raise("Mingo doesn't have a collection to write to! Please give it one using Mingo.collection=, probably in an initializer.")
+    def configure
+      config = Config.instance
+      yield config if block_given?
+      config
     end
+    alias :config :configure
 
-    def collection=(collection)
-      @collection = collection
-
-      if @collection
-        index = [['experiment', Mongo::ASCENDING], ['alternative', Mongo::ASCENDING]]
-        @collection.create_index index, :unique => true
-      end
-
-      @collection
-    end
+    delegate *Config.public_instance_methods(false), :to => :configure
   end
 end
