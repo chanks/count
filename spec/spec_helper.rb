@@ -1,4 +1,4 @@
-ENV["RAILS_ENV"] = "test"
+ENV["RAILS_ENV"] = "production"
 
 require 'rails_app/config/environment'
 
