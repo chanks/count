@@ -78,6 +78,12 @@ branch :array, :boolean, :range, :hash, :integer do |test_type|
         record['participants'].should      == [mingo_id]
       end
 
+      it "several times should not create any duplicate result records" do
+        3.times { participate! }
+        Mingo.collection.count.should == 1
+        results_for(@alternative)['_id'].should == "#{test_type}_test/#{@alternative}"
+      end
+
       context "who then converts" do
         before { convert! }
 

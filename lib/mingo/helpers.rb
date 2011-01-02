@@ -6,8 +6,9 @@ module Mingo
       result = ab_choose(test_name, alternatives, &block)
 
       if Mingo.collection
-        selector  = {:test => test_name, :alternative => result, :participants => {:$ne => mingo_id}}
-        modifiers = {:$inc => {:participant_count => 1}, :$push => {:participants => mingo_id}}
+        selector  = { :_id => [test_name, result].join('/'), :test => test_name,
+                      :alternative => result, :participants => { :$ne => mingo_id } }
+        modifiers = { :$inc => { :participant_count => 1 }, :$push => { :participants => mingo_id } }
 
         Mingo.collection.update selector, modifiers, :upsert => true
       end
