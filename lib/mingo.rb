@@ -14,7 +14,12 @@ module Mingo
 
     def collection=(collection)
       @collection = collection
-      @collection.create_index([['experiment', Mongo::ASCENDING], ['alternative', Mongo::ASCENDING]], :unique => true)
+
+      if @collection
+        index = [['experiment', Mongo::ASCENDING], ['alternative', Mongo::ASCENDING]]
+        @collection.create_index index, :unique => true
+      end
+
       @collection
     end
   end

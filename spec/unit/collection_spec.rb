@@ -10,12 +10,11 @@ describe "Mingo.collection" do
   end
 
   it "when there is none set should raise an error" do
-    actual_collection = Mingo.collection
-    Mingo.send :instance_variable_set, :@collection, nil
+    actual_collection, Mingo.collection = Mingo.collection, nil
 
     proc { Mingo.collection }.should raise_error /Mingo doesn't have a collection to write to/
 
-    Mingo.send :instance_variable_set, :@collection, actual_collection
+    Mingo.collection = actual_collection
   end
 end
 
