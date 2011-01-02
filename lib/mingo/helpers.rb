@@ -41,9 +41,8 @@ module Mingo
 
     def bingo!(*test_names)
       if Mingo.collection
-        selector  = { :test => { :$in => test_names },
-                      :participants => mingo_id, :conversions => { :$ne => mingo_id } }
-        modifiers = { :$inc => { :conversion_count => 1 }, :$push => { :conversions => mingo_id } }
+        selector  = {:test => {:$in => test_names}, :participants => mingo_id, :conversions => {:$ne => mingo_id}}
+        modifiers = {:$inc => {:conversion_count => 1}, :$push => {:conversions => mingo_id}}
 
         Mingo.collection.update selector, modifiers, :multi => true
       end
