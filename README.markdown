@@ -15,16 +15,16 @@ Add Mingo to your Gemfile. Until a gem is released, you'll probably want to poin
 Give Mingo a collection to store your test results in. You can do this via Rails' config system:
 
     # config/environments/production.rb
-    config.mingo.collection = Mongo::Connection.from_uri(ENV['MONGO_URI'])['database_name']['experiments']
+    config.mingo.collection = Mongo::Connection.from_uri(ENV['MONGO_URI'])['database_name']['mingo_results']
 
 Or, just use Mingo.collection= in an initializer, something like:
 
     if Rails.env.production?
       connection = Mongo::Connection.new "your_mongo_host", 27017, :logger => Rails.logger
-      database   = connection['mingo_results']
+      database   = connection['database_name']
 
       database.authenticate(ENV['MONGO_USERNAME'], ENV['MONGO_PASSWORD'])
-      Mingo.collection = database['experiments']
+      Mingo.collection = database['mingo_results']
     end
 
 If you don't give Mingo a collection, it will function the same, except that the results of your tests won't be persisted anywhere. This is probably what you want in development or test mode.
@@ -118,7 +118,7 @@ Mingo currently includes two rake tasks:
 
 * Since Mingo doesn't rely on the database being available, it is very durable - if your MongoDB instance fails, the results collected while it is down will be lost, but Mingo's normal operation will not be interrupted (users will still be randomized, will still always see the same value, etc).
 
-* All of the writes to Mongo are atomic, so there should be no concurrency issues. It is strongly recommended that your MongoDB server have enough RAM to hold Mingo's entire experiments collection in memory, though.
+* All of the writes to Mongo are atomic, so there should be no concurrency issues. It is strongly recommended that your MongoDB server have enough RAM to hold Mingo's entire results collection in memory, though.
 
 ## Not Yet Implemented ##
 
