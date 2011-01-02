@@ -27,3 +27,22 @@ describe "Experiment.parse_all" do
     alternative.conversion_count.should  == 100
   end
 end
+
+describe "Experiment#results" do
+  before do
+    populate :experiment => "array", :alternatives => {1 => [980, 140], 2 => [1010, 100], 3 => [990, 85]}
+    @results = Mingo::Experiment.parse_all.first.results
+  end
+
+  it "should output a human-readable summary of the results with some relevant data points" do
+    [
+      "1 converted 14.29% of users (140 of 980).",
+      "2 converted 9.90% of users (100 of 1010).",
+      "3 converted 8.59% of users (85 of 990).",
+      "There is a 0.133908% probability that 1 scored better than 2 due to chance alone.",
+      "There is a 15.485142% probability that 2 scored better than 3 due to chance alone."
+    ].each do |string|
+      @results.should include string
+    end
+  end
+end
