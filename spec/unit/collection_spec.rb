@@ -9,14 +9,3 @@ describe "Mingo.collection" do
     c.db.name.should == 'mingo_test'
   end
 end
-
-describe "Mingo.collection=" do
-  it "when there is none existent should create a unique index on the test and alternative fields" do
-    Mingo.collection.drop
-    Mingo.collection = Mongo::Connection.new['mingo_test']['mingo_results']
-
-    info = Mingo.collection.index_information['test_1_alternative_1']
-    info['key'].should == {'test' => 1, 'alternative' => 1}
-    info['unique'].should == true
-  end
-end

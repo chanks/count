@@ -4,19 +4,7 @@ module Mingo
   class Config
     include Singleton
 
-    attr_reader :collection
-
-    def collection=(collection)
-      @collection = collection
-
-      if @collection
-        index = [['test', Mongo::ASCENDING], ['alternative', Mongo::ASCENDING]]
-        @collection.create_index index, :unique => true
-      end
-
-      @collection
-    end
-
+    attr_accessor :collection
     attr_writer :mode
 
     def mode
