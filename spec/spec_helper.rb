@@ -35,9 +35,9 @@ def populate(hash)
     doc = { :test              => hash[:test],
             :alternative       => alternative,
             :participant_count => participant_count,
-            :participants      => [],
+            :participants      => (1..20).map{rand(2**31)},
             :conversion_count  => conversion_count,
-            :conversions       => [] }
+            :conversions       => (1..20).map{rand(2**31)} }
 
     Mingo.collection.insert(doc)
   end
