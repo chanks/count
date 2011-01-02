@@ -1,9 +1,104 @@
 = Mingo
 
-* https://github.com/chanks/mingo
+Mingo is an A/B testing engine for Rails 3 apps, using MongoDB as a backend. It is still very early in development, but everything covered in this README should be functional.
 
-== Description:
+The name 'Mingo' is a mash-up of A/Bingo and Mongo.
 
-Mingo will eventually be a simple A/B testing engine for Rails 3 apps. It'll use MongoDB as a backend.
+== Installation:
 
-Honestly, the only reason I'm even putting it up on Github at this point is because my laptop's hard drive is making a slight grinding noise, and I want an easy backup.
+* Install MongoDB. Mingo was developed against v1.6, but older versions will probably work fine.
+
+* Add Mingo to your Gemfile. Until a gem is released, you'll probably want to point to a specific ref:
+
+    gem 'mingo', :git => 'git://github.com/chanks/mingo.git', :ref => "(something recent...)"
+
+* In an initializer, tell Mingo what collection you want it to store your testing data in. This will look something like:
+
+    if Rails.env.production?
+      connection = Mongo::Connection.new "your_mongo_host", 27017, :logger => Rails.logger
+      database   = connection['mingo_results']
+
+      database.authenticate(ENV['MONGO_USERNAME'], ENV['MONGO_PASSWORD'])
+      Mingo.collection = database['experiments']
+    end
+
+* Start writing A/B tests! No scripts or migrations necessary.
+
+== Usage:
+
+Mingo is designed to be mostly API-compatible with A/Bingo, and has the same basic features. For example, in a view:
+
+    Our product costs <%= ab_test('price', [10, 15, 20]) %> dollars.
+
+Each user will be randomized to see one of the three prices, and will see the same price on every request (until the session is cleared).
+
+Later, when somebody purchases your product:
+
+    bingo!('price')
+
+This will mark them as having converted successfully at the price they were randomized to, but will only happen if they previously triggered the ab_test helper.
+
+Additionally, a given user will only be marked as a participant or a conversion in a given test once, so it won't throw off your results if somebody triggers the ab_test or bingo! helpers multiple times.
+
+You may also convert many tests simultaneously:
+
+    bingo!('price_on_signup_page', 'testimonial_on_signup_page', 'we_asked_them_extra_nice')
+
+Finally, if you want to access the value that the current user would be randomized to, without actually enrolling them in the trial:
+
+    We showed you <%= ab_choose('price', [10, 15, 20]) %> dollars for the A/B test, but we'll only charge you 8!
+
+The ab_test, ab_choose and bingo! helpers are available in both views and controllers.
+
+=== Not Just Arrays:
+
+If you don't tell Mingo what alternatives to use for a given test, it will return true or false instead:
+
+    <% if ab_test('boolean') %>
+      Half of your users will always see this.
+    <% else %>
+      And the other half will always see this!
+    <% end %>
+
+If you pass Mingo a range, it'll pick a value out of it:
+
+    What's your favorite letter? Mine is <%= ab_test('letter', ('a'..'z')) %>!
+
+If you pass Mingo an integer, and it will return another integer between it and 1:
+
+    I bet if we put your picture on Hot or Not, you'd score a <%= ab_test('hotness', 10)) %>!
+
+Finally, if you pass a hash with integers as values, it will use the integers as weights:
+
+    You'll probably see "Cat" below, but 1 out of 4 people will see "Dog" instead.
+    <%= ab_test('animal', {"Cat" => 3, "Dog" => 1}) %>
+
+=== Blocks:
+
+If you pass the ab_test or ab_choose helpers a block, they'll yield the selection to it:
+
+    <% ab_test('insult', ['java', 'php', 'mumps']) do |awful_language| %>
+      Your mother uses <%= awful_language %>!
+    <% end %>
+
+=== Rake Tasks:
+
+Mingo currently includes two rake tasks:
+
+* rake mingo:results - outputs the current results of all your tests.
+* rake mingo:clear - clears all test results from Mongo.
+
+== Cool Stuff:
+
+* Mingo does not read from a cache or db during normal operation, and writes are done in Mongo's non-blocking (unsafe) mode. This should keep Mingo very performant, as it doesn't spend any time waiting for I/O.
+
+* Since Mingo doesn't rely on the database being available, it is durable - if your MongoDB instance fails, the results collected while it is down will be lost, but Mingo's normal operation will not be interrupted (users will still be randomized, will still always see the same value, etc).
+
+* All of the writes to Mongo are atomic, so there should be no concurrency issues. It is strongly recommended that your MongoDB server have enough RAM to hold Mingo's entire experiments collection in memory, though.
+
+== Not Yet Implemented:
+
+* Make Mingo only active in production. In development/test, you don't care about the results, and you probably want to see different outcomes on each request anyway.
+* Some way to tie Mingo in with user accounts. Currently Mingo uses an integer stashed in the session to track users, which will be different if the same person logs in on multiple computers.
+* Something to ignore participations/conversions by bots.
+* An admin interface to browse current tests and their results.
