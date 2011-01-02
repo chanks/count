@@ -18,7 +18,7 @@ describe "An A/B boolean test in the view" do
   end
 
   def load_record(boolean)
-    Mingo.collection.find_one :experiment => 'boolean_test', :alternative => boolean
+    Mingo.collection.find_one :test => 'boolean_test', :alternative => boolean
   end
 
   it "should return a value of true or false" do

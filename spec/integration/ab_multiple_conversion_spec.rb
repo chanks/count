@@ -24,8 +24,8 @@ describe "Multiple A/B tests that will be simultaneously converted" do
     end
 
     it "should mark that user as a conversion for those tests" do
-      first  = Mingo.collection.find_one(:experiment => 'test_1', :alternative => @number)
-      second = Mingo.collection.find_one(:experiment => 'test_2', :alternative => @boolean)
+      first  = Mingo.collection.find_one(:test => 'test_1', :alternative => @number)
+      second = Mingo.collection.find_one(:test => 'test_2', :alternative => @boolean)
 
       [first, second].each do |record|
         record['participants'].should include mingo_id
@@ -34,8 +34,8 @@ describe "Multiple A/B tests that will be simultaneously converted" do
     end
 
     it "should not mark that user as a conversion for the other tests" do
-      first  = Mingo.collection.find_one(:experiment => 'other_1', :alternative => @other_1)
-      second = Mingo.collection.find_one(:experiment => 'other_2', :alternative => @other_2)
+      first  = Mingo.collection.find_one(:test => 'other_1', :alternative => @other_1)
+      second = Mingo.collection.find_one(:test => 'other_2', :alternative => @other_2)
 
       [first, second].each do |record|
         record['participants'].should include mingo_id
@@ -62,8 +62,8 @@ describe "Multiple A/B tests that will be simultaneously converted" do
       end
 
       it "should mark that user as a conversion for those tests" do
-        first  = Mingo.collection.find_one(:experiment => 'test_1', :alternative => @number)
-        second = Mingo.collection.find_one(:experiment => 'test_2', :alternative => @boolean)
+        first  = Mingo.collection.find_one(:test => 'test_1', :alternative => @number)
+        second = Mingo.collection.find_one(:test => 'test_2', :alternative => @boolean)
 
         [first, second].each do |record|
           record['participants'].should include mingo_id
@@ -72,8 +72,8 @@ describe "Multiple A/B tests that will be simultaneously converted" do
       end
 
       it "should not mark that user as a conversion for the other tests" do
-        first  = Mingo.collection.find_one(:experiment => 'other_1', :alternative => @other_1)
-        second = Mingo.collection.find_one(:experiment => 'other_2', :alternative => @other_2)
+        first  = Mingo.collection.find_one(:test => 'other_1', :alternative => @other_1)
+        second = Mingo.collection.find_one(:test => 'other_2', :alternative => @other_2)
 
         [first, second].each do |record|
           if record

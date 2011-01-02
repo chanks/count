@@ -3,8 +3,8 @@ require 'mongo'
 require 'mingo/alternative'
 require 'mingo/config'
 require 'mingo/engine'
-require 'mingo/experiment'
 require 'mingo/helpers'
+require 'mingo/test'
 require 'mingo/version'
 
 module Mingo

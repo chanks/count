@@ -15,7 +15,7 @@ branch :array, :boolean, :range, :hash, :integer do |test_type|
     end
 
     define_method :results_for do |alternative|
-      Mingo.collection.find_one :experiment => "#{test_type}_test", :alternative => alternative
+      Mingo.collection.find_one :test => "#{test_type}_test", :alternative => alternative
     end
 
     it "should always return the same value for a given user" do

@@ -6,7 +6,7 @@ module Mingo
       result = ab_choose(test_name, alternatives, &block)
 
       if Mingo.collection
-        selector  = {:experiment => test_name, :alternative => result, :participants => {:$ne => mingo_id}}
+        selector  = {:test => test_name, :alternative => result, :participants => {:$ne => mingo_id}}
         modifiers = {:$inc => {:participant_count => 1}, :$push => {:participants => mingo_id}}
 
         Mingo.collection.update selector, modifiers, :upsert => true
@@ -41,7 +41,7 @@ module Mingo
 
     def bingo!(*test_names)
       if Mingo.collection
-        selector  = { :experiment => { :$in => test_names },
+        selector  = { :test => { :$in => test_names },
                       :participants => mingo_id, :conversions => { :$ne => mingo_id } }
         modifiers = { :$inc => { :conversion_count => 1 }, :$push => { :conversions => mingo_id } }
 

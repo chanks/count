@@ -20,7 +20,7 @@ describe "An A/B array choose helper" do
   end
 
   define_method :results_for do |alternative|
-    Mingo.collection.find_one :experiment => "array_test", :alternative => alternative
+    Mingo.collection.find_one :test => "array_test", :alternative => alternative
   end
 
   it "should always return the same value for a given user" do

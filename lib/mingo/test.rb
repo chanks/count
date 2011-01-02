@@ -1,19 +1,19 @@
 module Mingo
-  class Experiment
+  class Test
     class << self
       def parse_all
-        fields = %w(experiment alternative participant_count conversion_count)
+        fields = %w(test alternative participant_count conversion_count)
 
-        alts = Mingo.collection.find({}, {:fields => fields}).group_by { |doc| doc['experiment'] }
+        alts = Mingo.collection.find({}, {:fields => fields}).group_by { |doc| doc['test'] }
 
-        alts.map { |experiment, alternatives| new(experiment, alternatives) }
+        alts.map { |test, alternatives| new(test, alternatives) }
       end
     end
 
     attr_reader :id, :alternatives
 
-    def initialize(experiment, alternatives)
-      @id           = experiment
+    def initialize(test, alternatives)
+      @id           = test
       @alternatives = alternatives.map { |doc| Alternative.new(doc) }
     end
 

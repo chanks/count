@@ -10,7 +10,7 @@ module Mingo
       @collection = collection
 
       if @collection
-        index = [['experiment', Mongo::ASCENDING], ['alternative', Mongo::ASCENDING]]
+        index = [['test', Mongo::ASCENDING], ['alternative', Mongo::ASCENDING]]
         @collection.create_index index, :unique => true
       end
 
