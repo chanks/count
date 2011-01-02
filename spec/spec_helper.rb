@@ -19,4 +19,4 @@ RSpec.configure do |config|
   end
 end
 
-Mingo.collection.remove
+Mingo.collection.drop
