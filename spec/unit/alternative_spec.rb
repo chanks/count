@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "The alternatives of a test that has been run" do
   before do
     populate :test => "array", :alternatives => {1 => [1000, 100], 2 => [1000, 300], 3 => [1000, 50]}
-    @test         = Mingo::Test.parse_all.first
+    @test         = Mingo::Test.all.first
     @alternatives = @test.alternatives
   end
 

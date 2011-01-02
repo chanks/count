@@ -1,7 +1,7 @@
 module Mingo
   class Test
     class << self
-      def parse_all
+      def all
         fields = %w(test alternative participant_count conversion_count)
 
         alts = Mingo.collection.find({}, {:fields => fields}).group_by { |doc| doc['test'] }
