@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe "Multiple A/B tests, some with a common explicit conversion name" do
+describe "Multiple A/B tests that will be simultaneously converted" do
 
   # Hits an ab_test helper with an explicit conversion name.
   define_method :participate! do
-    get "/controller_tests/conversion"
+    get "/controller_tests/multiple_conversion"
     last_response.body.split('-').map { |element| eval(element) }
   end
 
   # Trigger the conversion.
   define_method :convert! do
-    get "/controller_tests/conversion_bingo"
+    get "/controller_tests/multiple_conversion_bingo"
   end
 
   it "should always return the same value for a given user" do

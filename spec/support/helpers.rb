@@ -11,7 +11,6 @@ def populate(hash)
   hash[:alternatives].each do |alternative, (participant_count, conversion_count)|
     doc = {
       :experiment        => hash[:experiment],
-      :conversion        => (hash[:conversion] || hash[:experiment]),
       :alternative       => alternative,
       :participant_count => participant_count,
       :participants      => [],
