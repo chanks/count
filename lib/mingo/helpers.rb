@@ -25,12 +25,17 @@ module Mingo
         else              alternatives.to_a
       end
 
-      digest = Digest::MD5.hexdigest(mingo_id.to_s + test_name.to_s)
-      index  = digest.hex % alternatives.length
-      result = alternatives[index]
+      result =
+      case Mingo.mode
+        when :shuffle then alternatives.sample
+        when :first   then alternatives.first
+        when :standard
+          digest = Digest::MD5.hexdigest(mingo_id.to_s + test_name.to_s)
+          index  = digest.hex % alternatives.length
+          alternatives[index]
+      end
 
       yield result if block_given?
-
       result
     end
 

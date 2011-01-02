@@ -88,6 +88,23 @@ If you pass the ab_test or ab_choose helpers a block, they'll yield the selectio
       Your mother uses <%= awful_language %>!
     <% end %>
 
+=== Mode:
+
+Mingo will, by default, behave in different ways depending on the environment you're running in. Mingo has three modes:
+
+* :shuffle will force Mingo to always select a new random alternative on every request, regardless of what the user has previously seen. This is the default in development mode, where you'll be wanting to see each of the ways your page in development can render.
+* :first will force Mingo to always select the first alternative for every request. This is the default in the test environment, where it's important for your page content to be predictable. For instance, if you're A/B testing the text of a button, and you have a Webrat or Capybara step to click on a button with particular text, you can be certain that the button's text will be the first alternative while your specs are running.
+* :standard is the typical tracking behavior, outlined in the examples above. This is the default for production.
+
+You can set the mode just like Mingo's collection, either through Rails' config system:
+
+    # config/environments/development.rb
+    config.mingo.mode = :standard
+
+Or on the Mingo module directly:
+
+    Mingo.mode = :shuffle
+
 === Rake Tasks:
 
 Mingo currently includes two rake tasks:
@@ -105,7 +122,6 @@ Mingo currently includes two rake tasks:
 
 == Not Yet Implemented:
 
-* Make Mingo only active in production. In development/test, you don't care about the results, and you probably want to see different outcomes on each request anyway.
 * Some way to tie Mingo in with user accounts. Currently Mingo uses an integer stashed in the session to track users, which will be different if the same person logs in on multiple computers.
 * Something to ignore participations/conversions by bots.
 * An admin interface to browse current tests and their results.
