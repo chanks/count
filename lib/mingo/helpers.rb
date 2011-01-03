@@ -2,21 +2,6 @@ require 'digest/md5'
 
 module Mingo
   module Helpers
-    def ab_test(test_name, alternatives = nil, &block)
-      result = ab_choose(test_name, alternatives, &block)
-
-      if Mingo.collection
-        user      = mingo_id
-        selector  = { :_id => [test_name, result].join('/'), :test => test_name,
-                      :alternative => result, :participants => { :$ne => user } }
-        modifiers = { :$inc => { :participant_count => 1 }, :$push => { :participants => user } }
-
-        Mingo.collection.update selector, modifiers, :upsert => true
-      end
-
-      result
-    end
-
     def ab_choose(test_name, alternatives = nil)
       alternatives =
         case alternatives
@@ -38,6 +23,21 @@ module Mingo
         end
 
       yield result if block_given?
+      result
+    end
+
+    def ab_test(test_name, alternatives = nil, &block)
+      result = ab_choose(test_name, alternatives, &block)
+
+      if Mingo.collection
+        user      = mingo_id
+        selector  = { :_id => [test_name, result].join('/'), :test => test_name,
+                      :alternative => result, :participants => { :$ne => user } }
+        modifiers = { :$inc => { :participant_count => 1 }, :$push => { :participants => user } }
+
+        Mingo.collection.update selector, modifiers, :upsert => true
+      end
+
       result
     end
 
