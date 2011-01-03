@@ -55,7 +55,7 @@ module Mingo
     private
 
     def mingo_id
-      session[:mingo_id] ||= rand 2**31
+      session[:mingo_id] ||= -rand(2**31)
     end
   end
 end
