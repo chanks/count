@@ -1,5 +1,3 @@
-require 'digest/md5'
-
 module Mingo
   module Helpers
     def ab_choose(test_name, alternatives = nil)

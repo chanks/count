@@ -1,5 +1,3 @@
-require 'singleton'
-
 module Mingo
   class Config
     include Singleton

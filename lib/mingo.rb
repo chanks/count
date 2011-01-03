@@ -1,4 +1,9 @@
+require 'singleton'
+require 'digest/md5'
+
 require 'mongo'
+
+require 'active_support/core_ext/module/delegation'
 
 require 'mingo/alternative'
 require 'mingo/config'
