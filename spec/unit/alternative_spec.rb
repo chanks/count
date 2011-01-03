@@ -10,8 +10,11 @@ describe "The alternatives of a test that has been run" do
   it "should calculate the proper conversion rate and percentage" do
     {1 => [0.1, '10.00%'], 2 => [0.3, '30.00%'], 3 => [0.05, '5.00%']}.each do |id, (rate, percent)|
       alternative = @alternatives.find { |alt| alt.id == id }
+
       alternative.conversion_rate.should       == rate
       alternative.conversion_percentage.should == percent
+
+      alternative.results.should include "#{id} converted #{percent} of users"
     end
   end
 end
