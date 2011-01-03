@@ -14,5 +14,10 @@ module Mingo
                   when 'production'  then :standard
                 end
     end
+
+    def index!
+      index = [['test', Mongo::ASCENDING], ['alternative', Mongo::ASCENDING]]
+      @collection.create_index index, :unique => true
+    end
   end
 end
