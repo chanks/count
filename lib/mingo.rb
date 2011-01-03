@@ -13,7 +13,7 @@ require 'mingo/version'
 
 if defined? Rails
   require 'mingo/rails_mingo_id'
-  require 'mingo/engine'
+  require 'mingo/railtie'
 end
 
 module Mingo

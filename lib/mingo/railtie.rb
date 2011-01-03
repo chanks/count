@@ -1,5 +1,5 @@
 module Mingo
-  class Engine < Rails::Engine
+  class Railtie < Rails::Railtie
     config.mingo = ::Mingo::Config.instance
 
     initializer "mingo.helpers" do
