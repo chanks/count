@@ -36,6 +36,17 @@ describe "Test.p_score_from_z_score" do
   end
 end
 
+describe "Test.z_score_between_alternatives" do
+  {
+    [[0.21,       500], [0.156, 500]] => 2.2135,
+    [[0.14166667, 600], [0.125, 600]] => 0.8495
+  }.each do |alternatives, z_score|
+    it "for alternatives #{alternatives} should return #{z_score}" do
+      Mingo::Test.z_score_between_alternatives(*alternatives).round(4).should == z_score
+    end
+  end
+end
+
 describe "Test#results" do
   before do
     populate :test => "array", :alternatives => {1 => [980, 140], 2 => [1010, 100], 3 => [990, 85]}
