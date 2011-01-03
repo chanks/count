@@ -9,3 +9,9 @@ describe "Mingo.collection" do
     c.db.name.should == 'mingo_test'
   end
 end
+
+describe "Mingo.collection=" do
+  it "should raise an error if it's passed anything but a collection or nil" do
+    proc { Mingo.collection = 'blah' }.should raise_error StandardError, /was instead given blah/
+  end
+end

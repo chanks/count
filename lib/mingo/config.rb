@@ -2,7 +2,16 @@ module Mingo
   class Config
     include Singleton
 
-    attr_accessor :collection
+    attr_reader :collection
+
+    def collection=(collection)
+      if collection.nil? || collection.is_a?(Mongo::Collection)
+        @collection = collection
+      else
+        raise StandardError, "Mingo expected to be passed an instance of Mongo::Collection, but was instead given #{collection}"
+      end
+    end
+
     attr_writer :mode
 
     def mode
