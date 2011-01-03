@@ -126,5 +126,3 @@ Mingo includes some rake tasks for managing test results:
 * Some way to tie Mingo in with user accounts. Currently Mingo uses an integer stashed in the session to track users, which will be different if the same person logs in on multiple computers.
 
 * Something to ignore participations/conversions by bots.
-
-* An admin interface to browse current tests and their results.
