@@ -4,7 +4,10 @@ module Mingo
 
     initializer "mingo.helpers" do
       [:action_view, :action_controller].each do |hook|
-        ActiveSupport.on_load(hook){ include Mingo::Helpers }
+        ActiveSupport.on_load hook do
+          include Mingo::RailsMingoId
+          include Mingo::Helpers
+        end
       end
     end
 

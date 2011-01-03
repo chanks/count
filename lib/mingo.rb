@@ -7,10 +7,14 @@ require 'active_support/core_ext/module/delegation'
 
 require 'mingo/alternative'
 require 'mingo/config'
-require 'mingo/engine' if defined? Rails
 require 'mingo/helpers'
 require 'mingo/test'
 require 'mingo/version'
+
+if defined? Rails
+  require 'mingo/rails_mingo_id'
+  require 'mingo/engine'
+end
 
 module Mingo
   class << self

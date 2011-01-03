@@ -53,7 +53,11 @@ module Mingo
     private
 
     def mingo_id
-      session[:mingo_id] ||= -rand(2**31)
+      if defined? super
+        super
+      else
+        raise StandardError, "You need to define #mingo_id so that Mingo knows how to identify your user!"
+      end
     end
   end
 end
