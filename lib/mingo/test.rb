@@ -23,7 +23,10 @@ module Mingo
       chunks.times do |i|
         first, second = alts[i], alts[i + 1]
 
-        z = Test.z_score_between_alternatives(first, second)
+        first_pair  = [first.conversion_rate,  first.participant_count ]
+        second_pair = [second.conversion_rate, second.participant_count]
+
+        z = Test.z_score_between_alternatives(first_pair, second_pair)
         p = Test.p_score_from_z_score(z)
 
         percent = "%5f%" % (p * 100)
@@ -45,12 +48,9 @@ module Mingo
       end
 
       # Shamelessly copy-pasted from A/Bingo, by Patrick McKenzie.
-      def z_score_between_alternatives(first, second)
-        cr1 = first.conversion_rate
-        cr2 = second.conversion_rate
-
-        n1 = first.participant_count
-        n2 = second.participant_count
+      def z_score_between_alternatives(first_pair, second_pair)
+        cr1, n1 = first_pair
+        cr2, n2 = second_pair
 
         numerator = cr1 - cr2
         frac1 = cr1 * (1 - cr1) / n1
