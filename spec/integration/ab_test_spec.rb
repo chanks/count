@@ -46,49 +46,13 @@ require 'spec_helper'
         Mingo.collection.count.should == 1
         results_for(@number)['_id'].should == "array/#{@number}"
       end
-
-      context "who then converts" do
-        before { convert! }
-
-        it "should be recorded as a conversion" do
-          record = results_for(@number)
-
-          record['participant_count'].should == 1
-          record['participants'].should      == [mingo_id]
-          record['conversion_count'].should  == 1
-          record['conversions'].should       == [mingo_id]
-        end
-
-        it "several times should be recorded as a conversion only once" do
-          3.times { convert! }
-          record = results_for(@number)
-
-          record['participant_count'].should == 1
-          record['participants'].should      == [mingo_id]
-          record['conversion_count'].should  == 1
-          record['conversions'].should       == [mingo_id]
-        end
-      end
     end
 
     # Upserts bite me every once in a while, so I like to make sure
     # the behavior stays the same whether or not the record is already there.
     context "that has already recorded participations/conversions for some users" do
       before do
-        10.times do |i|
-          participate!
-          convert! if i.even?
-          clear_cookies
-        end
-      end
-
-      it "that has a conversion for a user that hasn't participated should not record it" do
-        convert!
-
-        Mingo.collection.find.to_a.each do |record|
-          record['participants'].should_not include mingo_id
-          record['conversions'].should_not include mingo_id if record['conversions']
-        end
+        populate :test => 'array', :alternatives => {1 => [100, 10], 2 => [100, 10], 3 => [100, 10]}
       end
 
       context "and returns a value for a user" do
@@ -102,23 +66,6 @@ require 'spec_helper'
           3.times { participate! }
 
           results_for(@number)['participants'].select{ |p| p == mingo_id }.count.should == 1
-        end
-
-        context "who then converts" do
-          before { convert! }
-
-          it "should be recorded as a conversion" do
-            record = results_for(@number)
-
-            record['participants'].should include mingo_id
-            record['conversions'].should include mingo_id
-          end
-
-          it "several times should be recorded as a conversion only once" do
-            3.times { convert! }
-
-            results_for(@number)['conversions'].select{ |p| p == mingo_id }.count.should == 1
-          end
         end
       end
     end
