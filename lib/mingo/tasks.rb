@@ -14,6 +14,11 @@ namespace :mingo do
     end
   end
 
+  desc "Create an index to help the database with large result sets."
+  task :index => :environment do
+    Mingo.index!
+  end
+
   desc "Clear all test data."
   task :clear => :environment do
     Mingo.collection.remove

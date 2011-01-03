@@ -112,6 +112,7 @@ Mingo includes some rake tasks for managing test results:
 * `rake mingo:results` - Outputs the current results of all your tests.
 * `rake mingo:list` - Lists the names of all tests that have gathered results.
 * `rake mingo:clear` - Clears all test results from Mongo.
+* `rake mingo:index` - Adds an index that may help the database if your results collection is large. Probably unnecessary for most apps.
 
 ## Cool Stuff ##
 
