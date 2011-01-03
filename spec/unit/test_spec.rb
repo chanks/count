@@ -28,6 +28,14 @@ describe "Test.all" do
   end
 end
 
+describe "Test.p_score_from_z_score" do
+  { 1.29 => 0.098525, 1.65 => 0.049471, 2.33 => 0.009903, 3.08 => 0.001035 }.each do |z, p|
+    it "given #{z} should return #{p}" do
+      Mingo::Test.p_score_from_z_score(z).round(6).should == p
+    end
+  end
+end
+
 describe "Test#results" do
   before do
     populate :test => "array", :alternatives => {1 => [980, 140], 2 => [1010, 100], 3 => [990, 85]}
