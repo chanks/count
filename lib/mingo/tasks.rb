@@ -1,4 +1,9 @@
 namespace :mingo do
+  desc "List all tests that have collected results."
+  task :list => :environment do
+    Mingo::Test.all.each { |test| puts test.id }
+  end
+
   desc "Display the results of the current tests."
   task :results => :environment do
     Mingo::Test.all.each do |test|

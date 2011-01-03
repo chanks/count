@@ -107,9 +107,10 @@ Or on the Mingo module directly:
 
 ### Rake Tasks ###
 
-Mingo currently includes two rake tasks:
+Mingo includes some rake tasks for managing test results:
 
 * `rake mingo:results` - Outputs the current results of all your tests.
+* `rake mingo:list` - Lists the names of all tests that have gathered results.
 * `rake mingo:clear` - Clears all test results from Mongo.
 
 ## Cool Stuff ##
