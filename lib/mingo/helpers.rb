@@ -6,9 +6,10 @@ module Mingo
       result = ab_choose(test_name, alternatives, &block)
 
       if Mingo.collection
+        user      = mingo_id
         selector  = { :_id => [test_name, result].join('/'), :test => test_name,
-                      :alternative => result, :participants => { :$ne => mingo_id } }
-        modifiers = { :$inc => { :participant_count => 1 }, :$push => { :participants => mingo_id } }
+                      :alternative => result, :participants => { :$ne => user } }
+        modifiers = { :$inc => { :participant_count => 1 }, :$push => { :participants => user } }
 
         Mingo.collection.update selector, modifiers, :upsert => true
       end
@@ -42,9 +43,10 @@ module Mingo
 
     def bingo!(*test_names)
       if Mingo.collection
+        user      = mingo_id
         selector  = { :test => { :$in => test_names },
-                      :participants => mingo_id, :conversions => { :$ne => mingo_id } }
-        modifiers = { :$inc => { :conversion_count => 1 }, :$push => { :conversions => mingo_id } }
+                      :participants => user, :conversions => { :$ne => user } }
+        modifiers = { :$inc => { :conversion_count => 1 }, :$push => { :conversions => user } }
 
         Mingo.collection.update selector, modifiers, :multi => true
       end
