@@ -8,10 +8,14 @@ module Mingo
     attr_writer :mode
 
     def mode
-      @mode ||= case Rails.env
-                  when 'development' then :shuffle
-                  when 'test'        then :first
-                  when 'production'  then :standard
+      @mode ||= if defined? Rails
+                  case Rails.env
+                    when 'development' then :shuffle
+                    when 'test'        then :first
+                    when 'production'  then :standard
+                  end
+                else
+                  :standard
                 end
     end
 
