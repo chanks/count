@@ -51,19 +51,11 @@ class ControllerTestsController < ApplicationController
   end
 
 
-  # specs for multiple conversions
+  # specs for multiple bingos
 
-  def multiple_conversion
-    number  = ab_test 'test_1', [1, 2, 3]
-    boolean = ab_test 'test_2'
-    other_1 = ab_test 'other_1', (10..20)
-    other_2 = ab_test 'other_2', (30..40)
-
-    render :text => [number, boolean, other_1, other_2].join('-')
-  end
-
-  def multiple_conversion_bingo
-    bingo! 'test_1', 'test_2'
+  def multiple_bingo
+    bingo! 'array', 'boolean'
     render :nothing => true
   end
+
 end
