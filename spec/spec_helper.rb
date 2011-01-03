@@ -26,7 +26,7 @@ def branch(*args, &block)
   args.map { |sym| ActiveSupport::StringInquirer.new sym.to_s }.each(&block)
 end
 
-def mingo_id
+def assigned_mingo_id
   last_response.headers['mingo_id'].to_i
 end
 

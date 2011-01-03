@@ -30,7 +30,7 @@ require 'spec_helper'
         record = results_for(@number)
 
         record['participant_count'].should == 1
-        record['participants'].should      == [mingo_id]
+        record['participants'].should      == [assigned_mingo_id]
       end
 
       it "several times should mark that user as a participant only once" do
@@ -38,7 +38,7 @@ require 'spec_helper'
         record = results_for(@number)
 
         record['participant_count'].should == 1
-        record['participants'].should      == [mingo_id]
+        record['participants'].should      == [assigned_mingo_id]
       end
 
       it "several times should not create any duplicate inserts, thanks to the unique _id index" do
@@ -59,13 +59,13 @@ require 'spec_helper'
         before { @number = participate! }
 
         it "should mark that user as a participant in the db" do
-          results_for(@number)['participants'].should include mingo_id
+          results_for(@number)['participants'].should include assigned_mingo_id
         end
 
         it "several times should mark that user as a participant only once" do
           3.times { participate! }
 
-          results_for(@number)['participants'].select{ |p| p == mingo_id }.count.should == 1
+          results_for(@number)['participants'].select{ |p| p == assigned_mingo_id }.count.should == 1
         end
       end
     end

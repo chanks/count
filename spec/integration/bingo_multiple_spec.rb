@@ -35,9 +35,9 @@ describe "Two A/B tests that are converted simultaneously" do
     it "should convert only the one they participated in" do
       Mingo.collection.find.to_a.each do |record|
         if record['test'] == 'array' && record['alternative'] == @number
-          record['conversions'].should include mingo_id
+          record['conversions'].should include assigned_mingo_id
         else
-          record['conversions'].should_not include mingo_id
+          record['conversions'].should_not include assigned_mingo_id
         end
       end
     end
@@ -53,9 +53,9 @@ describe "Two A/B tests that are converted simultaneously" do
       Mingo.collection.find.to_a.each do |record|
         if (record['test'] == 'array'   && record['alternative'] == @number ) ||
            (record['test'] == 'boolean' && record['alternative'] == @boolean)
-          record['conversions'].should include mingo_id
+          record['conversions'].should include assigned_mingo_id
         else
-          record['conversions'].should_not include mingo_id
+          record['conversions'].should_not include assigned_mingo_id
         end
       end
     end
@@ -71,9 +71,9 @@ describe "Two A/B tests that are converted simultaneously" do
       Mingo.collection.find.to_a.each do |record|
         if (record['test'] == 'array'   && record['alternative'] == @number ) ||
            (record['test'] == 'boolean' && record['alternative'] == @boolean)
-          record['conversions'].should include mingo_id
+          record['conversions'].should include assigned_mingo_id
         else
-          record['conversions'].should_not include mingo_id
+          record['conversions'].should_not include assigned_mingo_id
         end
       end
     end

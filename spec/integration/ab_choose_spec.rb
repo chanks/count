@@ -54,7 +54,7 @@ require 'spec_helper'
         before { @number = choose! }
 
         it "should not mark that user as a participant in the db" do
-          results_for(@number)['participants'].should_not include mingo_id
+          results_for(@number)['participants'].should_not include assigned_mingo_id
         end
 
         context "who then converts" do
@@ -62,8 +62,8 @@ require 'spec_helper'
 
           it "should not be recorded as a participant or conversion" do
             record = results_for(@number)
-            record['participants'].should_not include mingo_id
-            record['conversions'].should_not include mingo_id
+            record['participants'].should_not include assigned_mingo_id
+            record['conversions'].should_not include assigned_mingo_id
           end
         end
       end

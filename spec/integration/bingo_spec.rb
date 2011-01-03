@@ -29,7 +29,7 @@ describe "bingo!" do
 
     it "should not record them as a conversion" do
       Mingo.collection.find.to_a.each do |record|
-        record['conversions'].should_not include mingo_id
+        record['conversions'].should_not include assigned_mingo_id
       end
     end
   end
@@ -43,7 +43,7 @@ describe "bingo!" do
 
     it "should not record them as a conversion" do
       Mingo.collection.find.to_a.each do |record|
-        record['conversions'].should_not include mingo_id
+        record['conversions'].should_not include assigned_mingo_id
       end
     end
   end
@@ -55,7 +55,7 @@ describe "bingo!" do
     end
 
     it "should record them as a conversion" do
-      results_for(@number)['conversions'].should include mingo_id
+      results_for(@number)['conversions'].should include assigned_mingo_id
     end
   end
 
@@ -67,7 +67,7 @@ describe "bingo!" do
     end
 
     it "should record them as a conversion" do
-      results_for(@number)['conversions'].should include mingo_id
+      results_for(@number)['conversions'].should include assigned_mingo_id
     end
   end
 
@@ -80,7 +80,7 @@ describe "bingo!" do
     it "should record them as a conversion only once" do
       record = results_for(@number)
       record['conversion_count'].should == 1
-      record['conversions'].should include mingo_id
+      record['conversions'].should include assigned_mingo_id
     end
   end
 end

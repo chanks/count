@@ -42,7 +42,7 @@ describe "An A/B boolean test in the view" do
       record = load_record(@boolean)
 
       record['participant_count'].should == 1
-      record['participants'].should == [mingo_id]
+      record['participants'].should == [assigned_mingo_id]
     end
 
     context "who then converts" do
@@ -52,9 +52,9 @@ describe "An A/B boolean test in the view" do
         record = load_record(@boolean)
 
         record['participant_count'].should == 1
-        record['participants'].should == [mingo_id]
-        record['conversion_count'].should == 1
-        record['conversions'].should == [mingo_id]
+        record['participants'].should      == [assigned_mingo_id]
+        record['conversion_count'].should  == 1
+        record['conversions'].should       == [assigned_mingo_id]
       end
     end
   end
