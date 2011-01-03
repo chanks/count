@@ -22,7 +22,7 @@ module Mingo
           when nil     then [true, false]
           when Array   then alternatives
           when Integer then (1..alternatives).to_a
-          when Hash    then alternatives.each_with_object([]) { |(key, int), array| int.times { array << key } }
+          when Hash    then alternatives.inject([]) { |array, (key, integer)| array += [key] * integer }
           else              alternatives.to_a
         end
 
