@@ -3,8 +3,6 @@ require 'digest/md5'
 
 require 'mongo'
 
-require 'active_support/core_ext/module/delegation'
-
 require 'mingo/alternative'
 require 'mingo/config'
 require 'mingo/helpers'
@@ -25,6 +23,12 @@ module Mingo
     end
     alias :config :configure
 
-    Config.public_instance_methods(false).each { |method| delegate method, :to => :configure }
+    Config.public_instance_methods(false).each do |method|
+      class_eval <<-METHOD
+        def #{method}(*args)
+          configure.send("#{method}", *args)
+        end
+      METHOD
+    end
   end
 end
