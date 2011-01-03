@@ -8,9 +8,10 @@ The name 'Mingo' is a mash-up of A/Bingo and Mongo.
 
 First, install MongoDB. Mingo was developed against v1.6, but older versions will probably work fine. If you're on Heroku or EC2, MongoHQ's free plan will probably have more than enough space for you.
 
-Add Mingo to your Gemfile. Until a gem is released, you'll probably want to point to a specific ref:
+Add Mingo to your Gemfile. Until a gem is released, you'll probably want to point to a specific ref. The BSON C extensions gem is optional, but a good idea.
 
     gem 'mingo', :git => 'git://github.com/chanks/mingo.git', :ref => '(something recent...)'
+    gem 'bson_ext', '~> 1.1'
 
 Give Mingo a collection to store your test results in. You can do this via Rails' config system:
 
