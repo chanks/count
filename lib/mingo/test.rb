@@ -22,14 +22,7 @@ module Mingo
 
       chunks.times do |i|
         first, second = alts[i], alts[i + 1]
-
-        first_pair  = [first.conversion_rate,  first.participant_count ]
-        second_pair = [second.conversion_rate, second.participant_count]
-
-        z = Test.z_score_between_alternatives(first_pair, second_pair)
-        p = Test.p_score_from_z_score(z)
-
-        percent = "%5f%" % (p * 100)
+        percent = Test.percent_chance_for_alternatives(first, second)
 
         output << "There is a #{percent} probability that #{first.id} scored better than #{second.id} due to chance alone."
         output << "\n"
@@ -45,6 +38,16 @@ module Mingo
         alts = Mingo.collection.find({}, {:fields => fields}).group_by { |doc| doc['test'] }
 
         alts.map { |test, alternatives| new(test, alternatives) }
+      end
+
+      def percent_chance_for_alternatives(first, second)
+        first_pair  = [first.conversion_rate,  first.participant_count ]
+        second_pair = [second.conversion_rate, second.participant_count]
+
+        z = z_score_between_alternatives(first_pair, second_pair)
+        p = p_score_from_z_score(z)
+
+        "%5f%" % (p * 100)
       end
 
       # Shamelessly copy-pasted from A/Bingo, by Patrick McKenzie.
