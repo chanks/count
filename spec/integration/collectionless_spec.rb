@@ -15,7 +15,7 @@ describe "When Mingo doesn't have a collection set" do
     @collection.count.should == 0
   end
 
-  it "will return each value approximately 33% of the time, but won't persist any information" do
+  it "will return each value approximately 33% of the time, but won't persist any information (this will fail occasionally)" do
     results = Hash.new(0)
     100.times { clear_cookies; results[participate!] += 1 }
     results.values.each { |value| value.should be_within(15).of(33) }
