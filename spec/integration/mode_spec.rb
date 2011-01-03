@@ -8,6 +8,16 @@ describe "Mingo.mode =" do
 
   after { Mingo.mode = :standard }
 
+  context ":standard" do
+    before { Mingo.mode = :standard }
+
+    it "gives the typical behavior" do
+      results = Hash.new(0)
+      100.times { results[participate!] += 1 }
+      results.values.first.should == 100
+    end
+  end
+
   context ":shuffle" do
     before { Mingo.mode = :shuffle }
 
