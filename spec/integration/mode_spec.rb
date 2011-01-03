@@ -21,7 +21,7 @@ describe "Mingo.mode =" do
   context ":shuffle" do
     before { Mingo.mode = :shuffle }
 
-    it "a test should return a new random result every time, even for the same user" do
+    it "a test should return a new random result every time, even for the same user (this will fail occasionally)" do
       results = Hash.new(0)
       100.times { results[participate!] += 1 }
       results.values.each { |value| value.should be_within(15).of(33) }

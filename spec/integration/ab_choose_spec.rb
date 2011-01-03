@@ -17,7 +17,7 @@ require 'spec_helper'
       (1..10).map{ choose! }.uniq.count.should == 1
     end
 
-    it "should return 1, 2, and 3 each approximately 33% of the time" do
+    it "should return 1, 2, and 3 each approximately 33% of the time (this will fail occasionally)" do
       results = Hash.new(0)
       100.times { clear_cookies; results[choose!] += 1 }
 

@@ -21,21 +21,21 @@ require 'spec_helper'
 
       case test_type
       when :boolean
-        it "should return true and false each approximately 50% of the time" do
+        it "should return true and false each approximately 50% of the time (this will fail occasionally)" do
           [[true, false], [false, true]].should include @results.keys # can't sort - awkward
 
           @results.values.each { |value| value.should be_within(15).of(50) }
         end
 
       when :array, :range, :integer
-        it "should return 1, 2 and 3 each approximately 33% of the time" do
+        it "should return 1, 2 and 3 each approximately 33% of the time (this will fail occasionally)" do
           @results.keys.sort.should == [1, 2, 3]
 
           @results.values.each { |value| value.should be_within(15).of(33) }
         end
 
       when :hash
-        it "should return 1 ~66% of the time and 2 ~33% of the time" do
+        it "should return 1 ~66% of the time and 2 ~33% of the time (this will fail occasionally)" do
           @results.keys.sort.should == [1, 2]
 
           @results[1].should be_within(15).of(66)

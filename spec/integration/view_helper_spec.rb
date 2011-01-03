@@ -25,7 +25,7 @@ describe "An A/B boolean test in the view" do
     [true, false].should include participate!
   end
 
-  it "should return each value approximately 50% of the time" do
+  it "should return each value approximately 50% of the time (this will fail occasionally)" do
     results = Hash.new(0)
     100.times { clear_cookies; results[participate!] += 1 }
     results.values.each { |value| value.should be_within(15).of(50) }
