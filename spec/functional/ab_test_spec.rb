@@ -5,11 +5,11 @@ require 'spec_helper'
 
 describe "The ab_test helper" do
   before do
-    @tester = mingo_tester.new do
+    @tester = mingo_tester do
       def choose
         ab_test :test, [1, 2, 3]
       end
-    end
+    end.new
   end
 
   it_should_behave_like "an ab_test helper"
