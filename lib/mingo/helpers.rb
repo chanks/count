@@ -29,7 +29,7 @@ module Mingo
 
       if Mingo.collection
         user      = mingo_id
-        selector  = { :_id => [test_name, result].join('/'), :test => test_name,
+        selector  = { :_id => [test_name, result].join('/'), :test => test_name.to_s,
                       :alternative => result, :participants => { :$ne => user } }
         modifiers = { :$inc => { :participant_count => 1 }, :$push => { :participants => user } }
 
@@ -43,7 +43,7 @@ module Mingo
     def bingo!(*test_names)
       if Mingo.collection
         user      = mingo_id
-        selector  = { :test => { :$in => test_names },
+        selector  = { :test => { :$in => test_names.map { |name| name.to_s } },
                       :participants => user, :conversions => { :$ne => user } }
         modifiers = { :$inc => { :conversion_count => 1 }, :$push => { :conversions => user } }
 
