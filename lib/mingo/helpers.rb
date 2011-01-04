@@ -24,8 +24,8 @@ module Mingo
       result
     end
 
-    def ab_test(test_name, alternatives = nil, &block)
-      result = ab_choose(test_name, alternatives, &block)
+    def ab_test(test_name, alternatives = nil)
+      result = ab_choose(test_name, alternatives)
 
       if Mingo.collection
         user      = mingo_id
@@ -36,6 +36,7 @@ module Mingo
         Mingo.collection.update selector, modifiers, :upsert => true
       end
 
+      yield result if block_given?
       result
     end
 
