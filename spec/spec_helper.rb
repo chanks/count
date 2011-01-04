@@ -6,6 +6,9 @@ require 'rails_app/config/environment'
 # in ./support/ and its subdirectories.
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |file| require file }
 
+# Require shared example groups before running any specs
+Dir["#{File.dirname(__FILE__)}/**/shared/*.rb"].each { |file| require file }
+
 include Rack::Test::Methods
 
 def app
