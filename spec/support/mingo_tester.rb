@@ -2,8 +2,10 @@ def mingo_tester(&block)
   klass = Class.new do
     include Mingo::Helpers
 
-    def initialize(id = -rand(2**31))
-      @id = id
+    attr_accessor :id
+
+    def initialize(id = nil)
+      @id = id || randomize_id!
     end
 
     def choose
@@ -20,6 +22,10 @@ def mingo_tester(&block)
 
     def mingo_id
       @id
+    end
+
+    def randomize_id!
+      @id = -rand(2**31)
     end
   end
 
