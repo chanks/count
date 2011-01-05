@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails/spec_helper'
 
 describe "The rails application" do
   it "should include Mingo as one of its railties" do

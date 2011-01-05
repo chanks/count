@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails/spec_helper'
 
 describe "Mingo.collection" do
   it "should return the collection set in the rails app initializer" do

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails/spec_helper'
 
 # These specs are a subset of the boolean a/b test specs.
 # The goal is to ensure that the helpers work in views,
