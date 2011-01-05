@@ -1,5 +1,7 @@
 require 'rails/spec_helper'
 
+# Spec that the mingo_id method is overridable in the controller.
+
 describe "When the mingo_id method is overridden and a user participates" do
   before { get '/mingo_id_overrides/test/hash_me' }
 

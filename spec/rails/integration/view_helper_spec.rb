@@ -1,8 +1,6 @@
 require 'rails/spec_helper'
 
-# These specs are a subset of the boolean a/b test specs.
-# The goal is to ensure that the helpers work in views,
-# without duplicating the boolean specs unnecessarily.
+# Spec that Mingo's helpers are included in the view automatically.
 
 describe "An A/B boolean test in the view" do
 
