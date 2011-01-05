@@ -5,23 +5,14 @@ require 'spec_helper'
 describe "(THIS WILL FAIL OCCASIONALLY) ab_test, when given" do
   def test(alternatives)
     tester = mingo_tester do
-      if alternatives
-        define_method(:test){ab_test :test, alternatives}
-      else
-        define_method(:test){ab_test :test} # boolean test
+      define_method :test do
+        ab_test :test, alternatives
       end
     end
 
     results = Hash.new(0)
     100.times { results[tester.new.test] += 1 }
     results
-  end
-
-  it "nothing should return true and false, each ~50% of the time" do
-    results = test(nil)
-
-    [[true, false], [false, true]].should include results.keys # can't sort booleans - awkward
-    results.values.each { |value| value.should be_within(15).of(50) }
   end
 
   it "a three-member array should return each value ~33% of the time" do
