@@ -17,11 +17,11 @@ describe "When Mingo.mode =" do
 
   it ":shuffle ab_choose gives a new random value every time" do
     Mingo.mode = :shuffle
-    results.values.each { |value| value.should be_within(15).of(33) }
+    results.values.each { |value| value.should be_within(15).of(50) }
   end
 
   it ":first ab_choose gives the first value every time" do
     Mingo.mode = :first
-    results.should == {1 => 100}
+    results.should == {true => 100}
   end
 end

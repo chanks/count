@@ -6,7 +6,7 @@ shared_examples_for "a bingo helper" do
     end
 
     it "and there are previous participations/conversions should leave them unchanged" do
-      populate :test => 'test', :alternatives => {1 => [100, 10], 2 => [100, 10], 3 => [100, 10]}
+      populate :test => 'test', :alternatives => {true => [100, 10], false => [100, 10]}
       records = Mingo.collection.find.to_a
 
       @tester.bingo
@@ -32,7 +32,7 @@ shared_examples_for "a bingo helper" do
 
     context "and there are previous participations/conversions" do
       before do
-        populate :test => 'test', :alternatives => {1 => [100, 10], 2 => [100, 10], 3 => [100, 10]}
+        populate :test => 'test', :alternatives => {true => [100, 10], false => [100, 10]}
         @result = @tester.test
 
         @records = Mingo.collection.find.to_a

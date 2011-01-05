@@ -9,7 +9,7 @@ describe "When there is no collection defined" do
 
     @tester = mingo_tester do
       def choose
-        ab_test :test, [1, 2, 3]
+        ab_test :test
       end
     end.new
   end

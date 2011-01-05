@@ -4,11 +4,11 @@ describe "ab_test/ab_choose, when given string arguments instead of symbols" do
   before do
     @tester = mingo_tester do
       def test
-        ab_test 'test', [1, 2, 3]
+        ab_test 'test'
       end
 
       def choose
-        ab_choose 'test', [1, 2, 3]
+        ab_choose 'test'
       end
     end.new
   end

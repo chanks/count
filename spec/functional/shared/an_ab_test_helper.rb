@@ -18,7 +18,7 @@ shared_examples_for "an ab_test helper" do
 
   context "and there have been some previous participations" do
     before do
-      populate :test => 'test', :alternatives => {1 => [100, 10], 2 => [100, 10], 3 => [100, 10]}
+      populate :test => 'test', :alternatives => {true => [100, 10], false => [100, 10]}
       @records = Mingo.collection.find.to_a
     end
 

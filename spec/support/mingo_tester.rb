@@ -9,11 +9,11 @@ def mingo_tester(&block)
     end
 
     def choose
-      ab_choose :test, [1, 2, 3]
+      ab_choose :test
     end
 
     def test
-      ab_test :test, [1, 2, 3]
+      ab_test :test
     end
 
     def bingo

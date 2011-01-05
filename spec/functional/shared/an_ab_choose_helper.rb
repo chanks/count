@@ -7,7 +7,7 @@ shared_examples_for "an ab_choose helper" do
     results = Hash.new(0)
     100.times { @tester.randomize_id!; results[@tester.choose] += 1 }
 
-    results.keys.sort.should == [1, 2, 3]
-    results.values.each { |value| value.should be_within(15).of(33) }
+    [[true, false], [false, true]].should include results.keys
+    results.values.each { |value| value.should be_within(15).of(50) }
   end
 end

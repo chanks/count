@@ -6,11 +6,11 @@ describe "When returning the value yielded to a block" do
   before do
     @tester = mingo_tester do
       def test
-        ab_test(:test, [1, 2, 3]) { |result| return result }
+        ab_test(:test) { |result| return result }
       end
 
       def choose
-        ab_choose(:test, [1, 2, 3]) { |result| return result }
+        ab_choose(:test) { |result| return result }
       end
     end.new
   end
