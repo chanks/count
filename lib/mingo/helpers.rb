@@ -12,7 +12,7 @@ module Mingo
 
       result =
         case Mingo.mode
-          when :shuffle then alternatives.sample
+          when :shuffle then alternatives[rand(alternatives.count)]
           when :first   then alternatives.first
           when :standard
             digest = Digest::MD5.hexdigest(mingo_id.to_s + test_name.to_s)
