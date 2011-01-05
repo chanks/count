@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Chris Hanks"]
   s.email       = ["christopher.m.hanks@gmail.com"]
   s.homepage    = "https://github.com/chanks/mingo"
-  s.summary     = %q{A simple A/B testing engine for Rails 3.}
-  s.description = %q{A Rails 3 engine for simple A/B testing, with results persisted to MongoDB.}
+  s.summary     = %q{Simple A/B testing for any Ruby project.}
+  s.description = %q{Simple A/B testing for any Ruby project, with results persisted to MongoDB.}
 
   s.rubyforge_project = "mingo"
 
