@@ -1,6 +1,5 @@
-source "http://rubygems.org"
+source :rubygems
 
-# Specify your gem's dependencies in mingo.gemspec
 gemspec
 
 if RUBY_VERSION < '1.9'
