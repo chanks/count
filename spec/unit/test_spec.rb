@@ -31,7 +31,7 @@ end
 describe "Test.p_score_from_z_score" do
   { 1.29 => 0.098525, 1.65 => 0.049471, 2.33 => 0.009903, 3.08 => 0.001035 }.each do |z, p|
     it "given #{z} should return #{p}" do
-      Mingo::Test.p_score_from_z_score(z).round(6).should == p
+      Mingo::Test.p_score_from_z_score(z).should be_within(0.000001).of(p)
     end
   end
 end
@@ -42,7 +42,7 @@ describe "Test.z_score_between_alternatives" do
     [[0.14166667, 600], [0.125, 600]] => 0.8495
   }.each do |alternatives, z_score|
     it "for alternatives #{alternatives} should return #{z_score}" do
-      Mingo::Test.z_score_between_alternatives(*alternatives).round(4).should == z_score
+      Mingo::Test.z_score_between_alternatives(*alternatives).should be_within(0.0001).of(z_score)
     end
   end
 end
