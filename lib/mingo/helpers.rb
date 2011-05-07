@@ -1,6 +1,8 @@
 module Mingo
   module Helpers
     def ab_choose(test_name, alternatives = nil)
+      user = mingo_id
+
       alternatives =
         case alternatives
           when nil     then [true, false]
@@ -15,7 +17,7 @@ module Mingo
           when :shuffle then alternatives[rand(alternatives.count)]
           when :first   then alternatives.first
           when :standard
-            digest = Digest::MD5.hexdigest(mingo_id.to_s + test_name.to_s)
+            digest = Digest::MD5.hexdigest(user.to_s + test_name.to_s)
             index  = digest.hex % alternatives.length
             alternatives[index]
         end
@@ -26,9 +28,9 @@ module Mingo
 
     def ab_test(test_name, alternatives = nil)
       result = ab_choose(test_name, alternatives)
+      user   = mingo_id
 
       if Mingo.collection
-        user      = mingo_id
         selector  = { :_id => [test_name, result].join('/'), :test => test_name.to_s,
                       :alternative => result, :participants => { :$ne => user } }
         modifiers = { :$inc => { :participant_count => 1 }, :$push => { :participants => user } }
@@ -41,8 +43,9 @@ module Mingo
     end
 
     def bingo!(*test_names)
+      user = mingo_id
+
       if Mingo.collection
-        user      = mingo_id
         selector  = { :test => { :$in => test_names.map { |name| name.to_s } },
                       :participants => user, :conversions => { :$ne => user } }
         modifiers = { :$inc => { :conversion_count => 1 }, :$push => { :conversions => user } }
