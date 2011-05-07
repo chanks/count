@@ -1,6 +1,6 @@
 require 'rails/spec_helper'
 
-# Spec that Mingo's helpers are included in the view automatically.
+# Spec that Count's helpers are included in the view automatically.
 
 describe "An A/B boolean test in the view" do
 
@@ -16,7 +16,7 @@ describe "An A/B boolean test in the view" do
   end
 
   def load_record(boolean)
-    Mingo.collection.find_one :test => 'boolean_test', :alternative => boolean
+    Count.collection.find_one :test => 'boolean_test', :alternative => boolean
   end
 
   it "should return a value of true or false" do
@@ -40,7 +40,7 @@ describe "An A/B boolean test in the view" do
       record = load_record(@boolean)
 
       record['participant_count'].should == 1
-      record['participants'].should == [assigned_mingo_id]
+      record['participants'].should == [assigned_count_id]
     end
 
     context "who then converts" do
@@ -50,9 +50,9 @@ describe "An A/B boolean test in the view" do
         record = load_record(@boolean)
 
         record['participant_count'].should == 1
-        record['participants'].should      == [assigned_mingo_id]
+        record['participants'].should      == [assigned_count_id]
         record['conversion_count'].should  == 1
-        record['conversions'].should       == [assigned_mingo_id]
+        record['conversions'].should       == [assigned_count_id]
       end
     end
   end

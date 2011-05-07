@@ -5,16 +5,16 @@ require 'spec_helper'
 
 describe "When there is no collection defined" do
   before do
-    @collection, Mingo.collection = Mingo.collection, nil
+    @collection, Count.collection = Count.collection, nil
 
-    @tester = mingo_tester do
+    @tester = count_tester do
       def choose
         ab_test :test
       end
     end.new
   end
 
-  after { Mingo.collection = @collection }
+  after { Count.collection = @collection }
 
   it_should_behave_like "an ab_choose helper"
 end

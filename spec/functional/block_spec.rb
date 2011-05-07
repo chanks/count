@@ -5,7 +5,7 @@ require 'spec_helper'
 
 describe "When given a block" do
   before do
-    @tester = mingo_tester do
+    @tester = count_tester do
       def test
         ab_test(:test) { |result| result.to_s * 10 }
       end

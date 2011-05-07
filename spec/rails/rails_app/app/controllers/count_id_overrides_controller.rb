@@ -1,4 +1,4 @@
-class MingoIdOverridesController < ApplicationController
+class CountIdOverridesController < ApplicationController
 
   def test
     render :text => ab_test('override')
@@ -11,7 +11,7 @@ class MingoIdOverridesController < ApplicationController
 
   private
 
-  def mingo_id
+  def count_id
     Digest::MD5.hexdigest(params[:id])
   end
 end

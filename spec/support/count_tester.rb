@@ -1,6 +1,6 @@
-def mingo_tester(&block)
+def count_tester(&block)
   klass = Class.new do
-    include Mingo::Helpers
+    include Count::Helpers
 
     attr_accessor :id
 
@@ -20,7 +20,7 @@ def mingo_tester(&block)
       bingo! :test
     end
 
-    def mingo_id
+    def count_id
       @id
     end
 

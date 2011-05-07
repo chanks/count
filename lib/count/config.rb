@@ -1,4 +1,4 @@
-module Mingo
+module Count
   class Config
     include Singleton
 
@@ -8,7 +8,7 @@ module Mingo
       if collection.nil? || collection.is_a?(Mongo::Collection)
         @collection = collection
       else
-        raise StandardError, "Mingo expected to be passed an instance of Mongo::Collection, but was instead given #{collection}"
+        raise StandardError, "Count expected to be passed an instance of Mongo::Collection, but was instead given #{collection}"
       end
     end
 

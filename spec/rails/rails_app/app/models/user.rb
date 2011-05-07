@@ -1,5 +1,5 @@
 class User
-  include Mingo::Helpers
+  include Count::Helpers
 
   def initialize(id)
     @id = id
@@ -15,7 +15,7 @@ class User
 
   private
 
-  def mingo_id
+  def count_id
     @id + '-san'
   end
 end

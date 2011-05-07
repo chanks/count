@@ -1,18 +1,18 @@
-module Mingo
+module Count
   class Railtie < Rails::Railtie
-    config.mingo = ::Mingo::Config.instance
+    config.count = ::Count::Config.instance
 
-    initializer "mingo.helpers" do
+    initializer "count.helpers" do
       [:action_view, :action_controller].each do |hook|
         ActiveSupport.on_load hook do
-          include Mingo::RailsMingoId
-          include Mingo::Helpers
+          include Count::RailsCountId
+          include Count::Helpers
         end
       end
     end
 
     rake_tasks do
-      load 'mingo/tasks.rb'
+      load 'count/tasks.rb'
     end
   end
 end

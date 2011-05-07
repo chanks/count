@@ -1,6 +1,6 @@
 require 'rails/spec_helper'
 
-# Spec that Mingo's helpers are included in the controller automatically.
+# Spec that Count's helpers are included in the controller automatically.
 
 describe "An A/B boolean test in the controller" do
   # Trigger the a/b test, and return the true/false it chose.
@@ -15,7 +15,7 @@ describe "An A/B boolean test in the controller" do
   end
 
   def load_record(boolean)
-    Mingo.collection.find_one :test => 'boolean', :alternative => boolean
+    Count.collection.find_one :test => 'boolean', :alternative => boolean
   end
 
   it "should return a value of true or false" do
@@ -39,7 +39,7 @@ describe "An A/B boolean test in the controller" do
       record = load_record(@boolean)
 
       record['participant_count'].should == 1
-      record['participants'].should == [assigned_mingo_id]
+      record['participants'].should == [assigned_count_id]
     end
 
     context "who then converts" do
@@ -49,9 +49,9 @@ describe "An A/B boolean test in the controller" do
         record = load_record(@boolean)
 
         record['participant_count'].should == 1
-        record['participants'].should      == [assigned_mingo_id]
+        record['participants'].should      == [assigned_count_id]
         record['conversion_count'].should  == 1
-        record['conversions'].should       == [assigned_mingo_id]
+        record['conversions'].should       == [assigned_count_id]
       end
     end
   end

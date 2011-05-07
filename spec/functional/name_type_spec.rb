@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "ab_test/ab_choose, when given string arguments instead of symbols" do
   before do
-    @tester = mingo_tester do
+    @tester = count_tester do
       def test
         ab_test 'test'
       end

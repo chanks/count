@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "The bingo! helper" do
   context "in its default state" do
     before do
-      @tester = mingo_tester.new
+      @tester = count_tester.new
     end
 
     it_should_behave_like "a bingo helper"
@@ -11,7 +11,7 @@ describe "The bingo! helper" do
 
   context "with other tests to convert defined" do
     before do
-      @tester = mingo_tester do
+      @tester = count_tester do
         def bingo
           bingo! :test, :test_again, :test_the_third
         end
@@ -23,7 +23,7 @@ describe "The bingo! helper" do
 
   context "with the test defined as a strings" do
     before do
-      @tester = mingo_tester do
+      @tester = count_tester do
         def bingo
           bingo! 'test'
         end

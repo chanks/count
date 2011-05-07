@@ -1,4 +1,4 @@
-module Mingo
+module Count
   class Alternative
     attr_reader :id, :participant_count, :conversion_count
 

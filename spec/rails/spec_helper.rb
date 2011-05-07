@@ -10,13 +10,13 @@ end
 
 RSpec.configure do |config|
   config.after do
-    Mingo.collection.remove
+    Count.collection.remove
     clear_cookies
   end
 end
 
-Mingo.collection.drop
+Count.collection.drop
 
-def assigned_mingo_id
-  last_response.headers['mingo_id'].to_i
+def assigned_count_id
+  last_response.headers['count_id'].to_i
 end

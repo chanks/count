@@ -1,4 +1,4 @@
-Mingo has two distinct test suites - one for its basic functionality, and one to spec its Rails 3 integration.
+Count has two distinct test suites - one for its basic functionality, and one to spec its Rails 3 integration.
 
 Use:
 `rake` to run the main suite.

@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe "(THIS WILL FAIL OCCASIONALLY) ab_test, when given" do
   def test(alternatives)
-    tester = mingo_tester do
+    tester = count_tester do
       define_method :test do
         ab_test :test, alternatives
       end

@@ -2,12 +2,12 @@ shared_examples_for "a bingo helper" do
   context "when the user has not participated" do
     it "and there are no previous participations or conversions should leave the database empty" do
       @tester.bingo
-      Mingo.collection.count.should == 0
+      Count.collection.count.should == 0
     end
 
     it "and there are previous participations/conversions should leave them unchanged" do
       populate :test => 'test', :alternatives => {true => [100, 10], false => [100, 10]}
-      records = Mingo.collection.find.to_a
+      records = Count.collection.find.to_a
 
       @tester.bingo
       should_be_unchanged(records)
@@ -19,8 +19,8 @@ shared_examples_for "a bingo helper" do
       result = @tester.test
       @tester.bingo
 
-      Mingo.collection.count.should == 1
-      record = Mingo.collection.find_one
+      Count.collection.count.should == 1
+      record = Count.collection.find_one
       record.should == { '_id'               => "test/#{result}",
                          'test'              => 'test',
                          'alternative'       => result,
@@ -35,12 +35,12 @@ shared_examples_for "a bingo helper" do
         populate :test => 'test', :alternatives => {true => [100, 10], false => [100, 10]}
         @result = @tester.test
 
-        @records = Mingo.collection.find.to_a
+        @records = Count.collection.find.to_a
         @tester.bingo
       end
 
       it "the record count should remain the same" do
-        Mingo.collection.count.should == @records.count
+        Count.collection.count.should == @records.count
       end
 
       it "the record for the result should have it's conversions bumped by one" do

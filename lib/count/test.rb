@@ -1,4 +1,4 @@
-module Mingo
+module Count
   class Test
     attr_reader :id, :alternatives
 
@@ -35,7 +35,7 @@ module Mingo
       def all
         fields = %w(test alternative participant_count conversion_count)
 
-        alts = Mingo.collection.find({}, {:fields => fields}).group_by { |doc| doc['test'] }
+        alts = Count.collection.find({}, {:fields => fields}).group_by { |doc| doc['test'] }
 
         alts.map { |test, alternatives| new(test, alternatives) }
       end

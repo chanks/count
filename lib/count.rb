@@ -3,18 +3,18 @@ require 'digest/md5'
 
 require 'mongo'
 
-require 'mingo/alternative'
-require 'mingo/config'
-require 'mingo/helpers'
-require 'mingo/test'
-require 'mingo/version'
+require 'count/alternative'
+require 'count/config'
+require 'count/helpers'
+require 'count/test'
+require 'count/version'
 
 if defined? Rails
-  require 'mingo/rails_mingo_id'
-  require 'mingo/railtie'
+  require 'count/rails_count_id'
+  require 'count/railtie'
 end
 
-module Mingo
+module Count
   class << self
     def configure
       config = Config.instance

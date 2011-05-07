@@ -8,6 +8,6 @@ def populate(hash)
             :conversion_count  => conversion_count,
             :conversions       => (1..20).map{-rand(2**31)} }
 
-    Mingo.collection.insert(doc)
+    Count.collection.insert(doc)
   end
 end

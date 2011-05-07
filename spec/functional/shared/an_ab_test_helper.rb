@@ -5,8 +5,8 @@ shared_examples_for "an ab_test helper" do
         before { count.times { @result = @tester.test } }
 
         it "a single record for that user + test + result should be in the db" do
-          Mingo.collection.count.should    == 1
-          Mingo.collection.find_one.should == { '_id'               => "test/#{@result}",
+          Count.collection.count.should    == 1
+          Count.collection.find_one.should == { '_id'               => "test/#{@result}",
                                                 'test'              => 'test',
                                                 'alternative'       => @result,
                                                 'participants'      => [@tester.id],
@@ -19,7 +19,7 @@ shared_examples_for "an ab_test helper" do
   context "and there have been some previous participations" do
     before do
       populate :test => 'test', :alternatives => {true => [100, 10], false => [100, 10]}
-      @records = Mingo.collection.find.to_a
+      @records = Count.collection.find.to_a
     end
 
     [1, 5].each do |count|
@@ -27,7 +27,7 @@ shared_examples_for "an ab_test helper" do
         before { count.times { @result = @tester.test } }
 
         it "the collection count should be unchanged" do
-          Mingo.collection.count.should == @records.count
+          Count.collection.count.should == @records.count
         end
 
         it "the records for the other results should be unchanged" do

@@ -6,7 +6,7 @@ describe "A bingo! helper passed several tests" do
       populate :test => test_name, :alternatives => { true => [100, 10], false => [100, 10] }
     end
 
-    @tester = mingo_tester do
+    @tester = count_tester do
       def test
         [:test_1, :test_2, :test_3].map { |test_name| ab_test(test_name) }
       end
@@ -18,7 +18,7 @@ describe "A bingo! helper passed several tests" do
 
     @first, @second, @third = @tester.test
 
-    @records = Mingo.collection.find.to_a
+    @records = Count.collection.find.to_a
 
     @tester.bingo
   end

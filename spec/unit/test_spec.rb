@@ -4,18 +4,18 @@ describe "Test.all" do
   before do
     populate :test => "boolean", :alternatives => {true => [1500, 300], false => [1500, 150]}
     populate :test => "array", :alternatives => {1 => [950, 300], 2 => [1000, 100], 3 => [1050, 50]}
-    @tests = Mingo::Test.all
+    @tests = Count::Test.all
   end
 
   it "should return an array of individual tests" do
     @tests.count.should == 2
-    @tests.each { |exp| exp.should be_an_instance_of Mingo::Test }
+    @tests.each { |exp| exp.should be_an_instance_of Count::Test }
     @tests.map(&:id).sort.should == %w(array boolean)
   end
 
   it "should assign an array of alternatives to each test" do
     @tests.each do |test|
-      test.alternatives.each { |alt| alt.should be_an_instance_of Mingo::Alternative }
+      test.alternatives.each { |alt| alt.should be_an_instance_of Count::Alternative }
     end
   end
 
@@ -31,7 +31,7 @@ end
 describe "Test.p_score_from_z_score" do
   { 1.29 => 0.098525, 1.65 => 0.049471, 2.33 => 0.009903, 3.08 => 0.001035 }.each do |z, p|
     it "given #{z} should return #{p}" do
-      Mingo::Test.p_score_from_z_score(z).should be_within(0.000001).of(p)
+      Count::Test.p_score_from_z_score(z).should be_within(0.000001).of(p)
     end
   end
 end
@@ -42,7 +42,7 @@ describe "Test.z_score_between_alternatives" do
     [[0.14166667, 600], [0.125, 600]] => 0.8495
   }.each do |alternatives, z_score|
     it "for alternatives #{alternatives} should return #{z_score}" do
-      Mingo::Test.z_score_between_alternatives(*alternatives).should be_within(0.0001).of(z_score)
+      Count::Test.z_score_between_alternatives(*alternatives).should be_within(0.0001).of(z_score)
     end
   end
 end
@@ -50,7 +50,7 @@ end
 describe "Test#results" do
   before do
     populate :test => "array", :alternatives => {1 => [980, 140], 2 => [1010, 100], 3 => [990, 85]}
-    @results = Mingo::Test.all.first.results
+    @results = Count::Test.all.first.results
   end
 
   it "should output a human-readable summary of the results with some relevant data points" do

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "When Mingo.mode =" do
-  before { @tester = mingo_tester.new }
-  after  { Mingo.mode = :standard     }
+describe "When Count.mode =" do
+  before { @tester = count_tester.new }
+  after  { Count.mode = :standard     }
 
   def results
     hash = Hash.new(0)
@@ -11,17 +11,17 @@ describe "When Mingo.mode =" do
   end
 
   it ":standard ab_choose behaves typically" do
-    Mingo.mode = :standard
+    Count.mode = :standard
     results.values.first.should == 100
   end
 
   it ":shuffle ab_choose gives a new random value every time" do
-    Mingo.mode = :shuffle
+    Count.mode = :shuffle
     results.values.each { |value| value.should be_within(15).of(50) }
   end
 
   it ":first ab_choose gives the first value every time" do
-    Mingo.mode = :first
+    Count.mode = :first
     results.should == {true => 100}
   end
 end

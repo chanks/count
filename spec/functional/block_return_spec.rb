@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe "When returning the value yielded to a block" do
   before do
-    @tester = mingo_tester do
+    @tester = count_tester do
       def test
         ab_test(:test) { |result| return result }
       end
