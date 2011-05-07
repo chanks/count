@@ -9,7 +9,7 @@ require 'count/helpers'
 require 'count/test'
 require 'count/version'
 
-if defined? Rails
+if defined? Rails::Railtie
   require 'count/rails_count_id'
   require 'count/railtie'
 end
