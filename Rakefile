@@ -3,10 +3,9 @@ Bundler::GemHelper.install_tasks
 
 require 'rspec/core/rake_task'
 
-task :default => [:spec, :rails]
-task :count   => :spec
+task :default => [:count, :rails]
 
-RSpec::Core::RakeTask.new :spec do |spec|
+RSpec::Core::RakeTask.new :count do |spec|
   spec.pattern = "./spec/{functional,unit}/**/*_spec.rb"
 end
 
