@@ -1,6 +1,6 @@
 Count has two distinct test suites - one for its basic functionality, and one to spec its Rails 3 integration.
 
 Use:
-`rake` to run the main suite.
+`rake count` to run the main suite.
 `rake rails` to run the Rails integration suite.
-`rake all` to run both back-to-back.
+`rake` to run both back-to-back.
